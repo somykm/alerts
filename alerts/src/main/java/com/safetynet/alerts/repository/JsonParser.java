@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+//repository allows you to retrieve and delete a person using  and  as identifiers.
 @Repository
 public class JsonParser {
     ObjectMapper objectMapper = new ObjectMapper();
@@ -31,7 +31,7 @@ public class JsonParser {
     }
 
     void deletePerson(String firstName, String lastName){
-        persons.removeIf(person -> person.getFirstName().equalsIgnoreCase(firstName) $$ person.getLastName().equalsIgnoreCase(lastName));
+        persons.removeIf(p -> p.getFirstName().equalsIgnoreCase(firstName) && p.getLastName().equalsIgnoreCase(lastName));
         saveData();
     }
 

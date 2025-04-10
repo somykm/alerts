@@ -11,4 +11,8 @@ public class Person {
     private String zip;
     private String phone;
     private String email;
+
+    public String getName() {
+        return null;
+    }
 }
