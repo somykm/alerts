@@ -1,6 +1,9 @@
 package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.repository.JsonParser;
+import com.safetynet.alerts.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,22 +12,35 @@ import java.util.Optional;
 
 @Service
 public class PersonService {
-    private final List<Person> people =new ArrayList<>();
-    public Person addPerson(Person person){
-        people.add(person);
-        return person;
-    }
+    private final List<Person> people = new ArrayList<>();
+
+    @Autowired
+    private PersonRepository personRepository;
+    @Autowired
+    private JsonParser jsonParser;
+
+
+//    public Person addPerson(Person person) {
+//
+//        people.add(person);
+//        return person;
+//    }
+
     //get all people
-    public List<Person> getAllPeople(){
-        return people;
+    public List<Person> getAllPeople() {
+        return jsonParser.getAllPeople();
     }
-    public Person findPersonByName(String name){
+
+    public Person findPersonByName(String name) {
         return people.stream()
-                .filter(person ->person.getName().equalsIgnoreCase(name))
+                //.filter(person -> person.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
     }
 
+//    public Person addPerson(Person person) {
+//        return personRepository.save(person);
+//    }
 
     public Optional<Person> updatePerson(String firstName, String lastName, Person updatedPerson) {
         return people.stream()
