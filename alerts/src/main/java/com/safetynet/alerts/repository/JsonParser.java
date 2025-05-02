@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class JsonParser {
     ObjectMapper objectMapper = new ObjectMapper();
-    File jsonFile = new File("src/main/resources/data-test.json");
+    File jsonFile = new File("alerts/src/main/resources/data-test.json");
     //File jsonFile = new File("alerts/src/main/resources/data.json");
     List<Person> persons = new ArrayList<>();
 

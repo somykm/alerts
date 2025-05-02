@@ -1,7 +1,6 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.Person;
-import com.safetynet.alerts.repository.PersonRepository;
 import com.safetynet.alerts.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +10,8 @@ import java.util.*;
 @RestController
 @RequestMapping("/person")
 public class PeopleController {
-    //for modeAndView
-    //private List<Person> personInfo = new ArrayList<Person>();// Store the people dynamically
+
+    private List<Person> person = new ArrayList<Person>();// Store the people dynamically
 
     private final PersonService personService;
 
@@ -21,50 +20,39 @@ public class PeopleController {
         this.personService = personService;
     }
 
-//    @GetMapping
-//    public List<Person> fetchPeople() {
-//        return personService.getAllPeople();
-//    }
-//
-//    @PostMapping("/person")
-//    public Person addPerson(@RequestBody Person person) {
-//        return personService.addPerson(person);
-//    }
-
-
-//    @PutMapping("/{firstName}/{lastName}")
-//    public Optional<Person> updatePerson(@PathVariable String firstName, @PathVariable String lastName, @RequestBody Person updatedPerson) {
-//        //return personService.updatePerson(firstName, lastName, updatedPerson);
-//
-//        PersonRepository personRepository = null;
-//        return personRepository.findByFirstNameAndLastName(firstName, lastName)
-//                .get(person -> {
-//                    person.setAddress(updatedPerson.getAddress());
-//                    person.setCity(updatedPerson.getCity());
-//                    person.setZip(updatedPerson.getZip());
-//                    person.setEmail(updatedPerson.getEmail());
-//                    person.setPhone(updatedPerson.getPhone());
-//                    return personRepository.save(person);
-//                });
-//    }
-
-    @DeleteMapping("/delete")
-    public String deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
-        try {
-            personService.deletePerson(firstName, lastName);
-            return "Person deleted successfully.";
-        } catch (Exception e) {
-            return "Error occurred: " + e.getMessage();
-        }
-    }
-
-
+    //1. Fetch all people data (GET)
     @GetMapping("/all")
-    public List<Person> getPersonInfo() {
+    public List<Person> getPersonList() {
         return personService.getAllPeople();
     }
 
-//    public void setPersonInfo(List<Person> personInfo) {
-//        this.personInfo = personInfo;
-//    }
+    //2. add a new person (POST)
+    @PostMapping
+    public Person addPerson(@RequestBody Person person) {
+        return personService.addPerson(person);
+    }
+
+    //3.Update an existing person(PUT)
+    @PutMapping("/{firstName}/{lastName}")
+    public boolean updatePerson(
+            @PathVariable String firstName,
+            @PathVariable String lastName,
+            @RequestBody Person updatedPerson) {
+        return personService.updatePerson(firstName, lastName, updatedPerson);
+        //String updated = String.valueOf(personService.updatePerson(firstName, lastName));
+
+    }
+    //4. Delete a person (DELETE)
+    @DeleteMapping("/{firstName}/{lastName}")
+    public String deletePerson(
+            @PathVariable String firstName,
+            @PathVariable String lastName
+    ) {
+        boolean deleted = personService.deletePerson(firstName, lastName);
+        if (deleted) {
+            return "Person deleted successfully.";
+        } else {
+            return "Person not found!";
+        }
+    }
 }

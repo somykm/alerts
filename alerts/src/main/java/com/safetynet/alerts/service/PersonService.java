@@ -1,62 +1,57 @@
 package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.Person;
-import com.safetynet.alerts.repository.JsonParser;
 import com.safetynet.alerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PersonService {
-    private final List<Person> people = new ArrayList<>();
+    //private final List<Person> peopleList = new ArrayList<>();
 
     @Autowired
     private PersonRepository personRepository;
-    @Autowired
-    private JsonParser jsonParser;
 
-
-//    public Person addPerson(Person person) {
-//
-//        people.add(person);
-//        return person;
-//    }
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     //get all people
     public List<Person> getAllPeople() {
-        return jsonParser.getAllPeople();
+        return personRepository.findAll();
     }
 
-    public Person findPersonByName(String name) {
-        return people.stream()
-                //.filter(person -> person.getName().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
+    public Person addPerson(Person person){
+        personRepository.save(person);
+        System.out.println("Person added:" + person);
+        return person;
     }
 
-//    public Person addPerson(Person person) {
-//        return personRepository.save(person);
-//    }
-
-    public Optional<Person> updatePerson(String firstName, String lastName, Person updatedPerson) {
-        return people.stream()
-                .filter(person -> person.getFirstName().equalsIgnoreCase(firstName)
-                        && person.getLastName().equalsIgnoreCase(lastName))
-                .findFirst()
-                .map(existingPerson -> {
-                    people.remove(existingPerson);
-                    people.add(updatedPerson);
-                    return updatedPerson;
-                });
-
+    public boolean updatePerson(String firstName, String lastName, Person updatedPerson) {
+        for(Person person : personRepository.findAll()){
+            if(person.getFirstName().equalsIgnoreCase(firstName) && person.getFirstName().equalsIgnoreCase(lastName)){
+                person.setAddress(updatedPerson.getAddress());
+                person.setCity(updatedPerson.getCity());
+                person.setZip(updatedPerson.getZip());
+                person.setPhone(updatedPerson.getPhone());
+                person.setEmail(updatedPerson.getEmail());
+                personRepository.save(person);
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void deletePerson(String firstName, String lastName) {
-        people.removeIf(person -> person.getFirstName().equalsIgnoreCase(firstName)
-                && person.getLastName().equalsIgnoreCase(lastName));
+    public boolean deletePerson(String firstName, String lastName) {
+        Person person = personRepository.findByFirstNameAndLastName(firstName, lastName);
+
+        if(person != null){
+            personRepository.delete(person);
+            return true;
+        }
+        return false;
     }
 }
