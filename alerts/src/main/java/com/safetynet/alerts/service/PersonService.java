@@ -1,20 +1,17 @@
 package com.safetynet.alerts.service;
 
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PersonService {
-    //private final List<Person> peopleList = new ArrayList<>();
+    private final PersonRepository personRepository;
 
     @Autowired
-    private PersonRepository personRepository;
-
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
@@ -24,15 +21,15 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public Person addPerson(Person person){
+    public Person addPerson(Person person) {
         personRepository.save(person);
         System.out.println("Person added:" + person);
         return person;
     }
 
     public boolean updatePerson(String firstName, String lastName, Person updatedPerson) {
-        for(Person person : personRepository.findAll()){
-            if(person.getFirstName().equalsIgnoreCase(firstName) && person.getFirstName().equalsIgnoreCase(lastName)){
+        for (Person person : personRepository.findAll()) {
+            if (person.getFirstName().equalsIgnoreCase(firstName) && person.getLastName().equalsIgnoreCase(lastName)) {
                 person.setAddress(updatedPerson.getAddress());
                 person.setCity(updatedPerson.getCity());
                 person.setZip(updatedPerson.getZip());
@@ -48,7 +45,7 @@ public class PersonService {
     public boolean deletePerson(String firstName, String lastName) {
         Person person = personRepository.findByFirstNameAndLastName(firstName, lastName);
 
-        if(person != null){
+        if (person != null) {
             personRepository.delete(person);
             return true;
         }

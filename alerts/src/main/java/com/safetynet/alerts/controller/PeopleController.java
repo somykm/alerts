@@ -1,17 +1,19 @@
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+@Service
 @RestController
 @RequestMapping("/person")
 public class PeopleController {
 
-    private List<Person> person = new ArrayList<Person>();// Store the people dynamically
+    //private List<Person> person = new ArrayList<Person>();// Store the people dynamically
 
     private final PersonService personService;
 
@@ -42,6 +44,7 @@ public class PeopleController {
         //String updated = String.valueOf(personService.updatePerson(firstName, lastName));
 
     }
+
     //4. Delete a person (DELETE)
     @DeleteMapping("/{firstName}/{lastName}")
     public String deletePerson(

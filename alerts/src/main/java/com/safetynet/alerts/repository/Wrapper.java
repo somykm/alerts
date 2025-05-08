@@ -1,6 +1,6 @@
 package com.safetynet.alerts.repository;
 
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.domain.Person;
 
 import java.util.List;
 

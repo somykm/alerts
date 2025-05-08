@@ -1,8 +1,8 @@
 package com.safetynet.alerts.repository;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.domain.Person;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -10,12 +10,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//repository allows you to retrieve and delete a person using  and  as identifiers.
+//repository allows you to retrieve and delete a person using as identifiers.
+@Component
 @Repository
 public class JsonParser {
     ObjectMapper objectMapper = new ObjectMapper();
-    File jsonFile = new File("alerts/src/main/resources/data-test.json");
-    //File jsonFile = new File("alerts/src/main/resources/data.json");
+    //File jsonFile = new File("alerts/src/main/resources/data-test.json");
+    File jsonFile = new File("alerts/src/main/resources/data.json");
     List<Person> persons = new ArrayList<>();
 
     public JsonParser() throws IOException {
@@ -23,11 +24,8 @@ public class JsonParser {
     }
 
     void loadData() throws IOException {
-       //persons = objectMapper.readValue(jsonFile, new TypeReference<List<Person>>() {
-      // });
         Wrapper wrapper = objectMapper.readValue(jsonFile, Wrapper.class);
         persons = wrapper.getPersons();
-        // Access and print the details
         for (Person person : wrapper.getPersons()) {
             System.out.println("Name: " + person.getFirstName() + " " + person.getLastName());
             System.out.println("Address: " + person.getAddress() + ", " + person.getCity() + " " + person.getZip());
@@ -54,8 +52,9 @@ public class JsonParser {
     void saveData() {
         try {
             objectMapper.writeValue(jsonFile, persons); // Use wrapper to maintain structure
+            System.out.println("Data successfully saved to data.json");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error saving data: " + e.getMessage());
         }
     }
 }
