@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class PersonService {
-    private final PersonRepository personRepository;
+    private final PersonRepository personRepository;//dependency
 
     @Autowired
     public PersonService(PersonRepository personRepository) {
@@ -27,18 +27,23 @@ public class PersonService {
         return person;
     }
 
+    //    public boolean updatePerson(String firstName, String lastName, Person updatedPerson) {
+//        return false;
+//    }
     public boolean updatePerson(String firstName, String lastName, Person updatedPerson) {
-        for (Person person : personRepository.findAll()) {
-            if (person.getFirstName().equalsIgnoreCase(firstName) && person.getLastName().equalsIgnoreCase(lastName)) {
-                person.setAddress(updatedPerson.getAddress());
-                person.setCity(updatedPerson.getCity());
-                person.setZip(updatedPerson.getZip());
-                person.setPhone(updatedPerson.getPhone());
-                person.setEmail(updatedPerson.getEmail());
-                personRepository.save(person);
-                return true;
-            }
+        Person existingPerson = personRepository.findByFirstNameAndLastName(firstName, lastName);
+
+        if (existingPerson != null) {
+            existingPerson.setAddress(updatedPerson.getAddress());
+            existingPerson.setCity(updatedPerson.getCity());
+            existingPerson.setZip(updatedPerson.getZip());
+            existingPerson.setPhone(updatedPerson.getPhone());
+            existingPerson.setEmail(updatedPerson.getEmail());
+
+            personRepository.save(existingPerson); // Persist the changes
+            return true;
         }
+
         return false;
     }
 

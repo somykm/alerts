@@ -1,24 +1,23 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.domain.Person;
+import com.safetynet.alerts.repository.JsonParser;
+import com.safetynet.alerts.repository.PersonRepository;
 import com.safetynet.alerts.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@Service
 @RestController
 @RequestMapping("/person")
 public class PeopleController {
-
-    //private List<Person> person = new ArrayList<Person>();// Store the people dynamically
 
     private final PersonService personService;
 
     @Autowired
     public PeopleController(PersonService personService) {
+        super();
         this.personService = personService;
     }
 
@@ -35,14 +34,24 @@ public class PeopleController {
     }
 
     //3.Update an existing person(PUT)
+   // @PutMapping("/{firstName}/{lastName}")
+//    public boolean updatePerson(
+//            @PathVariable String firstName,
+//            @PathVariable String lastName,
+//            @RequestBody Person updatedPerson) {
+//        return personService.updatePerson(firstName, lastName, updatedPerson);
+//        //String updated = String.valueOf(personService.updatePerson(firstName, lastName));
+//
+//    }
+
+    //3.Update an existing person(PUT)
     @PutMapping("/{firstName}/{lastName}")
     public boolean updatePerson(
             @PathVariable String firstName,
             @PathVariable String lastName,
             @RequestBody Person updatedPerson) {
-        return personService.updatePerson(firstName, lastName, updatedPerson);
-        //String updated = String.valueOf(personService.updatePerson(firstName, lastName));
 
+        return personService.updatePerson(firstName, lastName, updatedPerson);
     }
 
     //4. Delete a person (DELETE)
