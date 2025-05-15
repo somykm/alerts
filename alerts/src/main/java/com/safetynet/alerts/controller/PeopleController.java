@@ -1,8 +1,6 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.domain.Person;
-import com.safetynet.alerts.repository.JsonParser;
-import com.safetynet.alerts.repository.PersonRepository;
 import com.safetynet.alerts.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,17 +30,6 @@ public class PeopleController {
     public Person addPerson(@RequestBody Person person) {
         return personService.addPerson(person);
     }
-
-    //3.Update an existing person(PUT)
-   // @PutMapping("/{firstName}/{lastName}")
-//    public boolean updatePerson(
-//            @PathVariable String firstName,
-//            @PathVariable String lastName,
-//            @RequestBody Person updatedPerson) {
-//        return personService.updatePerson(firstName, lastName, updatedPerson);
-//        //String updated = String.valueOf(personService.updatePerson(firstName, lastName));
-//
-//    }
 
     //3.Update an existing person(PUT)
     @PutMapping("/{firstName}/{lastName}")

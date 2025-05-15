@@ -1,10 +1,15 @@
 package com.safetynet.alerts.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.PersonRepository;
+import org.springframework.asm.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.io.*;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -14,6 +19,7 @@ public class PersonService {
     @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
+
     }
 
     //get all people
@@ -27,23 +33,17 @@ public class PersonService {
         return person;
     }
 
-    //    public boolean updatePerson(String firstName, String lastName, Person updatedPerson) {
-//        return false;
-//    }
     public boolean updatePerson(String firstName, String lastName, Person updatedPerson) {
-        Person existingPerson = personRepository.findByFirstNameAndLastName(firstName, lastName);
+        Person person = personRepository.findByFirstNameAndLastName(firstName, lastName);
 
-        if (existingPerson != null) {
-            existingPerson.setAddress(updatedPerson.getAddress());
-            existingPerson.setCity(updatedPerson.getCity());
-            existingPerson.setZip(updatedPerson.getZip());
-            existingPerson.setPhone(updatedPerson.getPhone());
-            existingPerson.setEmail(updatedPerson.getEmail());
-
-            personRepository.save(existingPerson); // Persist the changes
+        if (person != null) {
+            person.setAddress(updatedPerson.getAddress());
+            person.setCity(updatedPerson.getCity());
+            person.setZip(updatedPerson.getZip());
+            person.setPhone(updatedPerson.getPhone());
+            person.setEmail(updatedPerson.getEmail());
             return true;
         }
-
         return false;
     }
 

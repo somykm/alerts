@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.domain.Person;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,17 @@ import java.util.List;
 @Component
 public class JsonParser {
     ObjectMapper objectMapper = new ObjectMapper();
-    URL resourceUrl = getClass().getClassLoader().getResource("data-test.json");
+    URL resourceUrl = getClass().getClassLoader().getResource("data.json");
     File jsonFile = new File(resourceUrl.getFile());
-   //File jsonFile = new File("alerts/src/main/resources/data-test.json");
-    //    File jsonFile = new File("alerts/src/main/resources/data.json");
+
+
+
+
     List<Person> persons = new ArrayList<>();
+
+    public JsonParser() {
+        loadData();
+    }
 
     void loadData() {
         try {
@@ -35,18 +40,6 @@ public class JsonParser {
             persons = new ArrayList<>(); // Avoid breaking the program due to JSON issues
         }
     }
-
-//    void loadData() throws IOException {
-//        Wrapper wrapper = objectMapper.readValue(jsonFile, Wrapper.class);
-//        persons = wrapper.getPersons();
-//        for (Person person : wrapper.getPersons()) {
-//            System.out.println("Name: " + person.getFirstName() + " " + person.getLastName());
-//            System.out.println("Address: " + person.getAddress() + ", " + person.getCity() + " " + person.getZip());
-//            System.out.println("Phone: " + person.getPhone());
-//            System.out.println("Email: " + person.getEmail());
-//        }
-//
-//    }
 
     public Person findByFirstNameAndLastName(String firstName, String lastName, List<Person> users) {
         for (Person person : getAllPeople()) {
