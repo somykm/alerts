@@ -20,8 +20,8 @@ public class MedicalRecordRepository {
     }
 
     public MedicalRecord findByFirstNameAndLastName(String firstName, String lastName) {
-        for (MedicalRecord medicalRecord: jsonParser.getAllMedicalRecords()) {
-            if (medicalRecord.getFirstName().equalsIgnoreCase(firstName)&&
+        for (MedicalRecord medicalRecord : jsonParser.getAllMedicalRecords()) {
+            if (medicalRecord.getFirstName().equalsIgnoreCase(firstName) &&
                     medicalRecord.getLastName().equalsIgnoreCase(lastName)) {
                 return medicalRecord;
             }
@@ -36,15 +36,6 @@ public class MedicalRecordRepository {
     public void delete(MedicalRecord medicalRecord) {
         List<MedicalRecord> records = jsonParser.getAllMedicalRecords();
         records.remove(medicalRecord);
-    }
-
-    public void delete(String firstName,String lastName) {
-        List<MedicalRecord> records = jsonParser.getAllMedicalRecords();
-        MedicalRecord recordToDelete = findByFirstNameAndLastName(firstName,lastName);
-
-        if (recordToDelete != null) {
-            records.remove(recordToDelete);
-        }
     }
 
     public void saveAll(List<MedicalRecord> medicalRecordList) {

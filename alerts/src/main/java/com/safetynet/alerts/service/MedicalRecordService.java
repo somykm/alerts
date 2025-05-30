@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class MedicalRecordService {
-    private final MedicalRecordRepository medicalRecordRepository; // dependency
+    private final MedicalRecordRepository medicalRecordRepository;
 
     @Autowired
     public MedicalRecordService(MedicalRecordRepository medicalRecordRepository) {

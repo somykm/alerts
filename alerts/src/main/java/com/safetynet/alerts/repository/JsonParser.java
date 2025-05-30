@@ -11,20 +11,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-//repository allows you to retrieve and delete a person using as identifiers.
 @Component
 public class JsonParser {
-    //public List<Firestation> getAllFirestation;
     ObjectMapper objectMapper = new ObjectMapper();
     URL resourceUrl = getClass().getClassLoader().getResource("data-test.json");
     File jsonFile = new File(resourceUrl.getFile());
     List<Person> persons = new ArrayList<>();
     List<Firestation> firestations = new ArrayList<>();
-    List<MedicalRecord> medicalRecord = new ArrayList<>();
+    List<MedicalRecord> medicalRecords = new ArrayList<>();
 
     public JsonParser() {
         loadData();
         loadDataForFirestation();
+        loadDataForMedicalRecord();
     }
 
     void loadData() {
@@ -63,22 +62,23 @@ public class JsonParser {
     void deletePerson(String firstName, String lastName) {
         persons.removeIf(p -> p.getFirstName().equalsIgnoreCase(firstName) && p.getLastName().equalsIgnoreCase(lastName));
     }
-/************************Firestation*************************************************/
-void loadDataForFirestation() {
-    try {
-        Wrapper wrapper = objectMapper.readValue(jsonFile, Wrapper.class);
 
-        if (wrapper != null && wrapper.getFirestations() != null) {
-            firestations = wrapper.getFirestations();
-        } else {
-            firestations = new ArrayList<>(); // Ensure we always have a valid list
-            System.err.println("Warning: No firestation found in the JSON file.");
+    /************************Firestation*************************************************/
+    void loadDataForFirestation() {
+        try {
+            Wrapper wrapper = objectMapper.readValue(jsonFile, Wrapper.class);
+
+            if (wrapper != null && wrapper.getFirestations() != null) {
+                firestations = wrapper.getFirestations();
+            } else {
+                firestations = new ArrayList<>(); // Ensure we always have a valid list
+                System.err.println("Warning: No firestation found in the JSON file.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading data from JSON file: " + e.getMessage());
+            firestations = new ArrayList<>(); // Avoid breaking the program due to JSON issues
         }
-    } catch (IOException e) {
-        System.err.println("Error loading data from JSON file: " + e.getMessage());
-        firestations = new ArrayList<>(); // Avoid breaking the program due to JSON issues
     }
-}
 
     public Firestation findByAddress(String address) {
         for (Firestation firestation : getAllFirestation()) {
@@ -102,7 +102,40 @@ void loadDataForFirestation() {
     }
 
     /**********************************MedicalRecords***********************************************/
-    public List<MedicalRecord> getAllMedicalRecords() {
-        return medicalRecord;
+    void loadDataForMedicalRecord() {
+        try {
+            Wrapper wrapper = objectMapper.readValue(jsonFile, Wrapper.class);
+
+            if (wrapper != null && wrapper.getMedicalRecords() != null) {
+                medicalRecords = wrapper.getMedicalRecords();
+            } else {
+                medicalRecords = new ArrayList<>(); // Ensure we always have a valid list
+                System.err.println("Warning: No record found in the JSON file based on your search.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading data from JSON file: " + e.getMessage());
+            medicalRecords = new ArrayList<>(); // Avoid breaking the program due to JSON issues
+        }
     }
+
+    public MedicalRecord findByFirstNameAndLastNameForMedicalRecord(String firstName, String lastName) {
+        for (MedicalRecord medicalRecord : getAllMedicalRecords()) {
+            if (medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName)) {
+                return medicalRecord;
+            }
+        }
+        return null;
+    }
+
+    public List<MedicalRecord> getAllMedicalRecords() {
+        return medicalRecords;
+    }
+
+    void addMedicalRecord(MedicalRecord medicalRecord) {
+        medicalRecords.add(medicalRecord);
+    }
+
+//    void deleteMedicalRecord(String firstName, String lastName) {
+//        medicalRecords.removeIf(p -> p.getFirstName().equalsIgnoreCase(firstName) && p.getLastName().equalsIgnoreCase(lastName));
+//    }
 }
