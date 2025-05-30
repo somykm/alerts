@@ -1,15 +1,10 @@
 package com.safetynet.alerts.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.PersonRepository;
-import org.springframework.asm.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.io.*;
-import java.io.IOException;
 import java.util.List;
 
 @Service

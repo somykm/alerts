@@ -1,38 +1,56 @@
-//package com.safetynet.alerts.controller;
-//
-//import com.safetynet.alerts.domain.Firestation;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@RestController
-//@RequestMapping("/firestation")
-//public class FirestationController {
-//        private final List<Firestation> firestations = new ArrayList<>();
-//
-//        @PostMapping
-//        public ResponseEntity<String> addMapping(@RequestBody Firestation firestation) {
-//            firestations.add(firestation);
-//            return ResponseEntity.ok("Mapping added successfully!");
-//        }
-//
-//        @PutMapping
-//        public ResponseEntity<String> updateMapping(@RequestBody Firestation firestation) {
-//            for (Firestation fs : firestations) {
-//                if (fs.getAddress().equals(firestation.getAddress())) {
-//                    fs.setFirestationNumber(firestation.getFirestationNumber());
-//                    return ResponseEntity.ok("Mapping updated successfully!");
-//                }
-//            }
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found!");
-//        }
-//
-//        @DeleteMapping("/{address}")
-//        public ResponseEntity<String> deleteMapping(@PathVariable String address) {
-//            firestations.removeIf(fs -> fs.getAddress().equals(address));
-//            return ResponseEntity.ok("Mapping deleted successfully!");
-//        }
-//}
+package com.safetynet.alerts.controller;
+
+import com.safetynet.alerts.domain.Firestation;
+import com.safetynet.alerts.service.FirestationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/firestations")
+public class FirestationController {
+    private final FirestationService firestationService;
+
+    @Autowired
+    public FirestationController(FirestationService firestationService) {
+        super();
+        this.firestationService = firestationService;
+    }
+
+    //1.get the list of firestation
+    @GetMapping("/all")
+    public List<Firestation> getFirestationsList() {
+        return firestationService.getAllFireStations();
+    }
+
+    //add firestation (post)
+    @PostMapping
+    public Firestation addFirestation(@RequestBody Firestation firestation) {
+        return firestationService.addFirestation(firestation);
+    }
+
+    //update firestation (put)
+    @PutMapping("/{address}")
+    public boolean updateFirestation(@PathVariable String address,
+                                     @RequestBody Firestation updatedFirestation) {
+
+        return firestationService.updateFirestation(address, updatedFirestation);
+    }
+
+    @DeleteMapping("/{address}")
+    public String deleteFirestation(@PathVariable String address) {
+        boolean deleted = firestationService.deleteFirestation(address);
+        if(deleted){
+            return "Firestation deleted successfully!";
+        } else{
+            return "Firestation not found!";
+        }
+
+    }
+}
+
+
+

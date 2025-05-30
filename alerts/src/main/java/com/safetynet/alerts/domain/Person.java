@@ -1,7 +1,11 @@
 package com.safetynet.alerts.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Data;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Person {
     private String firstName;
@@ -11,4 +15,5 @@ public class Person {
     private String zip;
     private String phone;
     private String email;
+
 }

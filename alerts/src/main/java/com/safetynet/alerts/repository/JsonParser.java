@@ -1,24 +1,26 @@
 package com.safetynet.alerts.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safetynet.alerts.domain.Firestation;
+import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.domain.Person;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 //repository allows you to retrieve and delete a person using as identifiers.
 @Component
 public class JsonParser {
+    public List<Firestation> getAllFirestation;
     ObjectMapper objectMapper = new ObjectMapper();
-    URL resourceUrl = getClass().getClassLoader().getResource("data.json");
+    URL resourceUrl = getClass().getClassLoader().getResource("data-test.json");
     File jsonFile = new File(resourceUrl.getFile());
-
-
-
-
+    List<MedicalRecord> medicalRecord = new ArrayList<>();
+    List<Firestation> firestations = new ArrayList<>();
     List<Person> persons = new ArrayList<>();
 
     public JsonParser() {
@@ -41,7 +43,7 @@ public class JsonParser {
         }
     }
 
-    public Person findByFirstNameAndLastName(String firstName, String lastName, List<Person> users) {
+    public Person findByFirstNameAndLastName(String firstName, String lastName) {
         for (Person person : getAllPeople()) {
             if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
                 return person;
@@ -61,4 +63,13 @@ public class JsonParser {
     void deletePerson(String firstName, String lastName) {
         persons.removeIf(p -> p.getFirstName().equalsIgnoreCase(firstName) && p.getLastName().equalsIgnoreCase(lastName));
     }
+
+    public List<MedicalRecord> getAllMedicalRecords() {
+        return medicalRecord;
+    }
+
+    public List<Firestation> getAllFirestation() {
+        return firestations;
+    }
+
 }
