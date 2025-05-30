@@ -24,6 +24,7 @@ public class JsonParser {
 
     public JsonParser() {
         loadData();
+        loadDataForFirestation();
     }
 
     void loadData() {
@@ -62,13 +63,46 @@ public class JsonParser {
     void deletePerson(String firstName, String lastName) {
         persons.removeIf(p -> p.getFirstName().equalsIgnoreCase(firstName) && p.getLastName().equalsIgnoreCase(lastName));
     }
+/************************Firestation*************************************************/
+void loadDataForFirestation() {
+    try {
+        Wrapper wrapper = objectMapper.readValue(jsonFile, Wrapper.class);
 
-    public List<MedicalRecord> getAllMedicalRecords() {
-        return medicalRecord;
+        if (wrapper != null && wrapper.getFirestations() != null) {
+            firestations = wrapper.getFirestations();
+        } else {
+            firestations = new ArrayList<>(); // Ensure we always have a valid list
+            System.err.println("Warning: No firestation found in the JSON file.");
+        }
+    } catch (IOException e) {
+        System.err.println("Error loading data from JSON file: " + e.getMessage());
+        firestations = new ArrayList<>(); // Avoid breaking the program due to JSON issues
+    }
+}
+
+    public Firestation findByAddress(String address) {
+        for (Firestation firestation : getAllFirestation()) {
+            if (firestation.getAddress().equals(address)) {
+                return firestation;
+            }
+        }
+        return null;
     }
 
     public List<Firestation> getAllFirestation() {
         return firestations;
     }
 
+    void addFirestation(Firestation firestation) {
+        firestations.add(firestation);
+    }
+
+    void deleteFirestation(String address) {
+        firestations.removeIf(p -> p.getAddress().equalsIgnoreCase(address));
+    }
+
+    /**********************************MedicalRecords***********************************************/
+    public List<MedicalRecord> getAllMedicalRecords() {
+        return medicalRecord;
+    }
 }
