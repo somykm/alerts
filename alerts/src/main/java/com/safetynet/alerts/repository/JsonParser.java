@@ -9,19 +9,18 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 //repository allows you to retrieve and delete a person using as identifiers.
 @Component
 public class JsonParser {
-    public List<Firestation> getAllFirestation;
+    //public List<Firestation> getAllFirestation;
     ObjectMapper objectMapper = new ObjectMapper();
     URL resourceUrl = getClass().getClassLoader().getResource("data-test.json");
     File jsonFile = new File(resourceUrl.getFile());
-    List<MedicalRecord> medicalRecord = new ArrayList<>();
-    List<Firestation> firestations = new ArrayList<>();
     List<Person> persons = new ArrayList<>();
+    List<Firestation> firestations = new ArrayList<>();
+    List<MedicalRecord> medicalRecord = new ArrayList<>();
 
     public JsonParser() {
         loadData();

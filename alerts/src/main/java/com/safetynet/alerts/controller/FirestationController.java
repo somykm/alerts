@@ -3,8 +3,6 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.service.FirestationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +18,7 @@ public class FirestationController {
         this.firestationService = firestationService;
     }
 
-    //1.get the list of firestation
+    //get the list of firestation
     @GetMapping("/all")
     public List<Firestation> getFirestationsList() {
         return firestationService.getAllFireStations();
@@ -48,7 +46,6 @@ public class FirestationController {
         } else{
             return "Firestation not found!";
         }
-
     }
 }
 

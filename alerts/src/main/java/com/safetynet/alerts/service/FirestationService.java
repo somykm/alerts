@@ -1,7 +1,6 @@
 package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.domain.Firestation;
-import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.FirestationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,19 +20,6 @@ public class FirestationService {
     public List<Firestation> getAllFireStations() {
         return firestationRepository.findAll();
     }
-
-    public Firestation getFireStationByAddress(String address) {
-        return firestationRepository.findByAddress(address);
-    }
-
-    public void saveFireStation(Firestation fireStation) {
-        firestationRepository.save(fireStation);
-    }
-
-//    public void deleteFirestation(String address) {
-//        firestationRepository.delete(address);
-//    }
-
 
     public Firestation addFirestation(Firestation firestation) {
         firestationRepository.save(firestation);

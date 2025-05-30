@@ -3,32 +3,35 @@ package com.safetynet.alerts.repository;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.domain.Person;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public class Wrapper {
     @JsonProperty("persons")
-    private List<Person> persons;
+    private List<Person> person;
     @JsonProperty("firestations")
-    private ResponseEntity<List<Firestation>> firestations;
+    private List<Firestation> firestations;
 
     public Wrapper() {
     }
 
     public List<Person> getPersons() {
-        return persons;
+        return person;
     }
 
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
+    public void setPersons(List<Person> person) {
+        this.person = person;
     }
 
     public String toStrong() {
-        return "Wrapper {" + "persons =" + persons + "}";
+        return "Wrapper {" + "person =" + person + "}";
     }
-    public ResponseEntity<List<Firestation>> getFirestations(){
+    public List<Firestation> getFirestations(){
         return firestations;
+    }
+
+    public void setFirestations(List<Firestation> firestations){
+        this.firestations = firestations;
     }
 
 }

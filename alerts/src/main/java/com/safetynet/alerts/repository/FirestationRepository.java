@@ -1,7 +1,5 @@
 package com.safetynet.alerts.repository;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.domain.Firestation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,19 +35,6 @@ public class FirestationRepository {
     public void delete(Firestation firestation) {
         List<Firestation> firestations = jsonParser.getAllFirestation();
         firestations.remove(firestation);
-    }
-
-//    public void delete(String address) {
-//
-//        List<Firestation> firestations = jsonParser.getAllFirestation();
-//        Firestation firestationToBeDelete = findByAddress(address);
-//        if (firestationToBeDelete != null) {
-//            firestations.remove(firestationToBeDelete);
-//        }
-//    }
-
-    public void saveAll(List<Firestation> firestationList) {
-
     }
 }
 
