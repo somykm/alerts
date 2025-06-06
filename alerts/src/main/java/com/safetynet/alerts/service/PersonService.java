@@ -18,7 +18,7 @@ public class PersonService {
     }
 
     //get all people
-    public List<Person> getAllPeople() {
+    public List<Person> getAllPeople(String up) {
         return personRepository.findAll();
     }
 

@@ -1,7 +1,9 @@
 package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.domain.Firestation;
+import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.FirestationRepository;
+import com.safetynet.alerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,12 @@ import java.util.List;
 public class FirestationService {
 
     private final FirestationRepository firestationRepository;
+    private final PersonRepository personRepository;
 
     @Autowired
-    public FirestationService(FirestationRepository firestationRepository) {
+    public FirestationService(FirestationRepository firestationRepository, PersonRepository personRepository) {
         this.firestationRepository = firestationRepository;
+        this.personRepository = personRepository;
     }
 
     public List<Firestation> getAllFireStations() {
@@ -46,5 +50,19 @@ public class FirestationService {
             return true;
         }
         return false;
+    }
+
+    public List<String> getPhoneNumbersByFirestation(String station) {
+        List<Firestation> firestationList = firestationRepository.findByStation(station);
+        //get addresse from firestation list
+        List<String> addresses =firestationList.stream()
+                .map(Firestation::getAddress)
+                .toList();
+        List<Person> residents =personRepository.findByAddress(addresses);
+
+        return residents.stream()
+                .map(Person ::getPhone)
+                .distinct()
+                .toList();
     }
 }

@@ -36,6 +36,10 @@ public class FirestationRepository {
         List<Firestation> firestations = jsonParser.getAllFirestation();
         firestations.remove(firestation);
     }
+
+    public List<Firestation> findByStation(String station) {
+        return null;
+    }
 }
 
 

@@ -2,11 +2,13 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.service.PersonService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/person")
 public class PeopleController {
@@ -22,7 +24,8 @@ public class PeopleController {
     //1. Fetch all people data (GET)
     @GetMapping("/all")
     public List<Person> getPersonList() {
-        return personService.getAllPeople();
+        log.info("Getting all the people");
+        return personService.getAllPeople("Up");
     }
 
     //2. add a new person (POST)

@@ -55,11 +55,11 @@ public class JsonParser {
         return persons;
     }
 
-    void addPerson(Person person) {
+    public void addPerson(Person person) {
         persons.add(person);
     }
 
-    void deletePerson(String firstName, String lastName) {
+    public void deletePerson(String firstName, String lastName) {
         persons.removeIf(p -> p.getFirstName().equalsIgnoreCase(firstName) && p.getLastName().equalsIgnoreCase(lastName));
     }
 

@@ -1,6 +1,8 @@
-package com.safetynet.alerts.repository;
+package com.safetynet.alerts;
 
 import com.safetynet.alerts.domain.Person;
+import com.safetynet.alerts.repository.JsonParser;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 @SpringJUnitConfig(JsonParser.class)
 @SpringBootTest
 class JsonParserTest {
@@ -18,22 +20,22 @@ class JsonParserTest {
 
     @Test
     void testConstructor() {
-        assertThat(jsonParser).isNotNull();
+        Assertions.assertThat(jsonParser).isNotNull();
     }
 
     @Test
     void testGetAllPeople() {
         List<Person> people = jsonParser.getAllPeople();
-        assertThat(people).isNotNull();
-        assertThat(people).isNotEmpty(); // Adjust based on expected behavior
+        Assertions.assertThat(people).isNotNull();
+        Assertions.assertThat(people).isNotEmpty(); // Adjust based on expected behavior
     }
 
     @Test
     void testFindByFirstNameAndLastName() {
         Person person = jsonParser.findByFirstNameAndLastName("John", "Boyd");
-        assertThat(person).isNotNull();
-        assertThat(person.getFirstName()).isEqualToIgnoringCase("John");
-        assertThat(person.getLastName()).isEqualToIgnoringCase("Boyd");
+        Assertions.assertThat(person).isNotNull();
+        Assertions.assertThat(person.getFirstName()).isEqualToIgnoringCase("John");
+        Assertions.assertThat(person.getLastName()).isEqualToIgnoringCase("Boyd");
     }
 
     @Test
@@ -42,8 +44,8 @@ class JsonParserTest {
         jsonParser.addPerson(newPerson);
 
         Person retrievedPerson = jsonParser.findByFirstNameAndLastName("Jane", "Doe");
-        assertThat(retrievedPerson).isNotNull();
-        assertThat(retrievedPerson.getEmail()).isEqualTo("jane.doe@example.com");
+        Assertions.assertThat(retrievedPerson).isNotNull();
+        Assertions.assertThat(retrievedPerson.getEmail()).isEqualTo("jane.doe@example.com");
     }
 
     @Test
@@ -53,6 +55,6 @@ class JsonParserTest {
 
         jsonParser.deletePerson("John", "Doe");
         Person deletedPerson = jsonParser.findByFirstNameAndLastName("Mark", "Smith");
-        assertThat(deletedPerson).isNull();
+        Assertions.assertThat(deletedPerson).isNull();
     }
 }
