@@ -16,4 +16,6 @@ public class Person {
     private String phone;
     private String email;
 
+    public Person(String john, String smith) {
+    }
 }

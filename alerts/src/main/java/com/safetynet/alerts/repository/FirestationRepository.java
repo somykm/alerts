@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class FirestationRepository {
@@ -38,7 +39,9 @@ public class FirestationRepository {
     }
 
     public List<Firestation> findByStation(String station) {
-        return null;
+        return jsonParser.getAllFirestation().stream()
+                .filter(firestation -> firestation.getStation().equalsIgnoreCase(station))
+                .collect(Collectors.toList());
     }
 }
 

@@ -25,7 +25,7 @@ public class PeopleController {
     @GetMapping("/all")
     public List<Person> getPersonList() {
         log.info("Getting all the people");
-        return personService.getAllPeople("Up");
+        return personService.getAllPeople();
     }
 
     //2. add a new person (POST)

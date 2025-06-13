@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -18,7 +19,8 @@ public class PersonService {
     }
 
     //get all people
-    public List<Person> getAllPeople(String up) {
+    public List<Person> getAllPeople() {
+
         return personRepository.findAll();
     }
 
@@ -50,5 +52,9 @@ public class PersonService {
             return true;
         }
         return false;
+    }
+
+    public List<String> getEmailsByCity(String city) {
+        return personRepository.getEmailsByCity(city);
     }
 }

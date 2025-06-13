@@ -19,7 +19,7 @@ public class HealthCheck implements HealthIndicator {
 
     @Override
     public Health health() {
-        if(personService.getAllPeople("Up")==null){
+        if(personService.getAllPeople()==null){
             return Health.down().withDetail("Cause", "OMDV API is not available").build();
         }
         return Health.up().build();
