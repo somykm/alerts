@@ -58,11 +58,14 @@ public class FirestationService {
         List<String> addresses =firestationList.stream()
                 .map(Firestation::getAddress)
                 .toList();
-        List<Person> residents =personRepository.findByAddress(addresses);
+        List<Person> residents =personRepository.findByAddressIn(addresses);
 
         return residents.stream()
                 .map(Person ::getPhone)
                 .distinct()
                 .toList();
+    }
+    public Firestation getFirestationByAddress(String address) {
+        return firestationRepository.findByAddress(address);
     }
 }

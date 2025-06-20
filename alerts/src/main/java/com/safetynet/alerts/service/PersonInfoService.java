@@ -56,7 +56,7 @@ public class PersonInfoService {
     private int calculateAge(String birthdate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate dob = LocalDate.parse(birthdate, formatter);
-        return Period.between(dob, LocalDate.now()).getYears();
+        LocalDate today = LocalDate.now();
+        return dob.until(today).getYears();
     }
-
 }

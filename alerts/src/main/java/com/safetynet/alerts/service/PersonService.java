@@ -8,6 +8,7 @@ import com.safetynet.alerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -59,7 +60,10 @@ public class PersonService {
         return personRepository.getEmailsByCity(city);
     }
 
-    public Person findByFirstNameAndLastName(String sara, String smith) {
-        return null;
+    public Person findByFirstNameAndLastName(String firstName, String lastName) {
+        return personRepository.findByFirstNameAndLastName(firstName, lastName);
     }
+//    public List<Person> findByAddress(String address) {
+//        return personRepository.findByAddressIn(address);
+//    }
 }
