@@ -47,5 +47,4 @@ public class MedicalRecordController {
         boolean deleted = medicalRecordService.deleteMedicalRecord(firstName, lastName);
         return deleted ? "Medical record deleted successfully." : "Medical record not found!";
     }
-
 }

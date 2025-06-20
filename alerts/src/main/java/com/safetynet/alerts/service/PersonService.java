@@ -1,12 +1,14 @@
 package com.safetynet.alerts.service;
 
+import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.domain.Person;
+import com.safetynet.alerts.domain.PersonInfolastName;
+import com.safetynet.alerts.repository.MedicalRecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -15,7 +17,6 @@ public class PersonService {
     @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
-
     }
 
     //get all people
@@ -56,5 +57,9 @@ public class PersonService {
 
     public List<String> getEmailsByCity(String city) {
         return personRepository.getEmailsByCity(city);
+    }
+
+    public Person findByFirstNameAndLastName(String sara, String smith) {
+        return null;
     }
 }

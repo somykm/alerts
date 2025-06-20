@@ -41,4 +41,13 @@ public class MedicalRecordRepository {
     public void saveAll(List<MedicalRecord> medicalRecordList) {
         jsonParser.getAllMedicalRecords().addAll(medicalRecordList);
     }
+
+    public MedicalRecord findByLastName(String lastName) {
+        for(MedicalRecord medicalRecord: jsonParser.getAllMedicalRecords()){
+            if(medicalRecord.getLastName().equalsIgnoreCase(lastName)){
+                return medicalRecord;
+            }
+        }
+        return null;
+    }
 }

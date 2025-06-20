@@ -1,6 +1,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.domain.Person;
+import com.safetynet.alerts.domain.PersonInfolastName;
 import com.safetynet.alerts.service.PersonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

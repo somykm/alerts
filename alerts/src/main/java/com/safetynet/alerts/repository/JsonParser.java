@@ -135,7 +135,7 @@ public class JsonParser {
         medicalRecords.add(medicalRecord);
     }
 
-//    void deleteMedicalRecord(String firstName, String lastName) {
-//        medicalRecords.removeIf(p -> p.getFirstName().equalsIgnoreCase(firstName) && p.getLastName().equalsIgnoreCase(lastName));
-//    }
+    public Person getPersonsByLastName(String lastName) {
+        return null;
+    }
 }
