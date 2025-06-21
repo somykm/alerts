@@ -34,18 +34,18 @@
 //    private PersonService personService;
 //    @InjectMocks
 //    private PeopleController peopleController;
-
-    //@Test
-    //void testGetPersonList() {
-        // Arrange
+//
+//    @Test
+//    void testGetPersonList() {
+//         Arrange
 //        List<Person> mockPeople = List.of(
 //                new Person("John", "Doe"),
 //                new Person("Jane", "Aston")
 //        );
-
-        //Mockito.when(personService.getAllPeople()).thenReturn(mockPeople);
-
-        //Act & Assert
+//
+//        Mockito.when(personService.getAllPeople()).thenReturn(mockPeople);
+//
+//        Act & Assert
 //        mockMvc.perform(get("/person/all"))
 //                .andExpect(status().isOk())
 //                .andExpect(jsonPath("$.length()").value(2))

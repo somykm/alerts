@@ -41,7 +41,8 @@ public class PersonInfoService {
 
                 for(MedicalRecord medical: medicalRecords){
                     if(medical.getLastName().equalsIgnoreCase(lastName)){
-                        info.setAge(calculateAge(medical.getBirthdate()));
+                        int age = calculateAge(medical.getBirthdate());
+                        info.setAge(age);
                         info.setMedications(medical.getMedications());
                         info.setAllergies(medical.getAllergies());
                         break;
@@ -56,7 +57,6 @@ public class PersonInfoService {
     private int calculateAge(String birthdate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate dob = LocalDate.parse(birthdate, formatter);
-        LocalDate today = LocalDate.now();
-        return dob.until(today).getYears();
+        return Period.between(dob, LocalDate.now()).getYears();
     }
 }

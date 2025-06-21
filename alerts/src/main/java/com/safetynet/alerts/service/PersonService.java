@@ -63,7 +63,4 @@ public class PersonService {
     public Person findByFirstNameAndLastName(String firstName, String lastName) {
         return personRepository.findByFirstNameAndLastName(firstName, lastName);
     }
-//    public List<Person> findByAddress(String address) {
-//        return personRepository.findByAddressIn(address);
-//    }
 }

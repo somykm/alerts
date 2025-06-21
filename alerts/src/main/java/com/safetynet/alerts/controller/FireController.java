@@ -22,7 +22,7 @@ public class FireController {
         this.fireService = fireService;
     }
 
-    @GetMapping("")
+    @GetMapping("/{address}")
     public List<Fire> getResidentAndStationByAddress(@RequestParam List<String> address) {
         log.info("Fetching residents data by address" + address);
         return fireService.getResidentAndStationByAddress(address);
