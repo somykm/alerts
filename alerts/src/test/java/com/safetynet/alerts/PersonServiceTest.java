@@ -25,7 +25,6 @@ public class PersonServiceTest {
     @Mock
     private PersonRepository personRepositoryMock;
 
-
     @InjectMocks
     private PersonService personService;// Inject mocks
 

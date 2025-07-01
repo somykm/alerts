@@ -1,6 +1,6 @@
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.domain.Fire;
+import com.safetynet.alerts.domain.FireResidents;
 import com.safetynet.alerts.service.FireService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class FireController {
     }
 
     @GetMapping("/{address}")
-    public List<Fire> getResidentAndStationByAddress(@RequestParam List<String> address) {
+    public List<FireResidents> getResidentAndStationByAddress(@RequestParam List<String> address) {
         log.info("Fetching residents data by address" + address);
         return fireService.getResidentAndStationByAddress(address);
     }

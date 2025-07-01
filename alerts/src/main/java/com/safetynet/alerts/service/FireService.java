@@ -1,6 +1,6 @@
 package com.safetynet.alerts.service;
 
-import com.safetynet.alerts.domain.Fire;
+import com.safetynet.alerts.domain.FireResidents;
 import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.domain.Person;
@@ -29,8 +29,8 @@ public class FireService {
         this.firestationService = firestationService;
         this.medicalRecordRepository = medicalRecordRepository;
     }
-    public List<Fire> getResidentAndStationByAddress(List<String> addresses) {
-        List<Fire> result = new ArrayList<>();
+    public List<FireResidents> getResidentAndStationByAddress(List<String> addresses) {
+        List<FireResidents> result = new ArrayList<>();
 
         for (String address : addresses) {
             List<Person> persons = personRepository.findByAddressIn(Arrays.asList(address));
@@ -42,7 +42,7 @@ public class FireService {
                 );
                 int age = calculateAgeFromBirthdate(medicalRecord.getBirthdate());
 
-                Fire fire = new Fire();
+                FireResidents fire = new FireResidents();
                 fire.setStation(firestation.getStation());
                 fire.setAddress(person.getAddress());
                 fire.setFirstName(person.getFirstName());

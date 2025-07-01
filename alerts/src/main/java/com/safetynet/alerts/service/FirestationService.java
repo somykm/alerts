@@ -55,17 +55,24 @@ public class FirestationService {
     public List<String> getPhoneNumbersByFirestation(String station) {
         List<Firestation> firestationList = firestationRepository.findByStation(station);
         //get addresse from firestation list
-        List<String> addresses =firestationList.stream()
+        List<String> addresses = firestationList.stream()
                 .map(Firestation::getAddress)
                 .toList();
-        List<Person> residents =personRepository.findByAddressIn(addresses);
+        List<Person> residents = personRepository.findByAddressIn(addresses);
 
         return residents.stream()
-                .map(Person ::getPhone)
+                .map(Person::getPhone)
                 .distinct()
                 .toList();
     }
+
     public Firestation getFirestationByAddress(String address) {
         return firestationRepository.findByAddress(address);
+    }
+//For method in FirestationArea
+    public List<String> getAddressesByStation(String station) {
+        return firestationRepository.findByStation(station).stream()
+                .map(Firestation::getAddress)
+                .toList();
     }
 }

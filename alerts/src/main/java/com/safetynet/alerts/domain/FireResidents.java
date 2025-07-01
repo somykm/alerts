@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.util.List;
 @Data
-public class Fire {
+public class FireResidents {
     private String station;
     private String address;
     private String firstName;
