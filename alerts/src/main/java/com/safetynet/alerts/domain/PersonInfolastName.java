@@ -1,7 +1,6 @@
 package com.safetynet.alerts.domain;
 
 import lombok.Data;
-
 import java.util.List;
 
 @Data
