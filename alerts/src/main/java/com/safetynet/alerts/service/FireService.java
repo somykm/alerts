@@ -15,6 +15,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+/*
+http://localhost:8080/fire?address=<address>
+This URL must return the list of residents living at the given address as well as the fire
+station number serving the address. The list must include the name, phone number,
+age, and medical history (medications, dosages, and allergies) of each person.
+ */
 
 @Service
 public class FireService {
@@ -29,6 +35,7 @@ public class FireService {
         this.firestationService = firestationService;
         this.medicalRecordRepository = medicalRecordRepository;
     }
+
     public List<FireResidents> getResidentAndStationByAddress(List<String> addresses) {
         List<FireResidents> result = new ArrayList<>();
 
@@ -58,34 +65,6 @@ public class FireService {
 
         return result;
     }
-//    public List<Fire> getResidentAndStationByAddress(List<String> address) {
-//        List<Person> persons = personService.findByAddress(address);
-//        Firestation firestation = firestationService.getFirestationByAddress(address);
-//
-//
-//        List<Fire> result = new ArrayList<>();
-//
-//        for (Person person : persons) {
-//            MedicalRecord medicalRecord = medicalRecordRepository.findByFirstNameAndLastName(
-//                    person.getFirstName(),
-//                    person.getLastName()
-//            );
-//            int age = calculateAgeFromBirthdate(medicalRecord.getBirthdate());
-//            Fire fire = new Fire();
-//            fire.setStation(firestation.getStation());
-//            fire.setAddress(person.getAddress());
-//            fire.setFirstName(person.getFirstName());
-//            fire.setLastName(person.getLastName());
-//            fire.setPhone(person.getPhone());
-//            fire.setAge(age);
-//
-//            fire.setMedications(medicalRecord.getMedications());
-//            fire.setAllergies(medicalRecord.getAllergies());
-//
-//            result.add(fire);
-//        }
-//        return result;
-//    }
 
     private int calculateAgeFromBirthdate(String birthdate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");

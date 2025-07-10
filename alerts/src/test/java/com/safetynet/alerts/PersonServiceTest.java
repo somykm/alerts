@@ -5,15 +5,12 @@ import com.safetynet.alerts.repository.PersonRepository;
 import com.safetynet.alerts.service.PersonService;
 import org.junit.Assert;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-
 import java.util.Arrays;
 import java.util.List;
 

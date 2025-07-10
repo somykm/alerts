@@ -70,6 +70,7 @@ public class PersonRepositoryTest {
         // Assert
         assertTrue(people.contains(newPerson));
     }
+
     @Test
     public void testDeleteToRemovePerson() {
         // Arrange

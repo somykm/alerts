@@ -1,14 +1,10 @@
 package com.safetynet.alerts.service;
 
-import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.domain.Person;
-import com.safetynet.alerts.domain.PersonInfolastName;
-import com.safetynet.alerts.repository.MedicalRecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service

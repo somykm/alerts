@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/phoneAlert")
@@ -16,12 +17,12 @@ public class PhoneAlertController {
     private FirestationService firestationService;
 
     @Autowired
-    public PhoneAlertController(FirestationService firestationService){
+    public PhoneAlertController(FirestationService firestationService) {
         this.firestationService = firestationService;
     }
 
     @GetMapping("")
-    public List<String> getPhoneNumberByFirestation(@RequestParam String firestation){
+    public List<String> getPhoneNumberByFirestation(@RequestParam String firestation) {
         log.info(firestation);
         return firestationService.getPhoneNumbersByFirestation(firestation);
     }

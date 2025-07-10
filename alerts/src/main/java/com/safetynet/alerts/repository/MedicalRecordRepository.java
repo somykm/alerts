@@ -43,8 +43,8 @@ public class MedicalRecordRepository {
     }
 
     public MedicalRecord findByLastName(String lastName) {
-        for(MedicalRecord medicalRecord: jsonParser.getAllMedicalRecords()){
-            if(medicalRecord.getLastName().equalsIgnoreCase(lastName)){
+        for (MedicalRecord medicalRecord : jsonParser.getAllMedicalRecords()) {
+            if (medicalRecord.getLastName().equalsIgnoreCase(lastName)) {
                 return medicalRecord;
             }
         }

@@ -1,7 +1,6 @@
 package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.domain.FireResidents;
-import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.domain.FirestationArea;
 import com.safetynet.alerts.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +44,6 @@ public class FirestationAreaService {
             } else {
                 adultCount++;
             }
-
-
         }
         FirestationArea response = new FirestationArea();
         response.setResidents(residentsData);

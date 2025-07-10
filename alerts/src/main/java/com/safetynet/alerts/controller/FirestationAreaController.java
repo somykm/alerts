@@ -20,7 +20,7 @@ public class FirestationAreaController {
     }
 
     @GetMapping("/{station}")
-    public FirestationArea getResidentInfoByStation(@PathVariable String station){
-            return firestationAreaService.getResidentInfoByStation(station);
+    public FirestationArea getResidentInfoByStation(@PathVariable String station) {
+        return firestationAreaService.getResidentInfoByStation(station);
     }
 }

@@ -41,9 +41,9 @@ public class FirestationController {
     @DeleteMapping("/{address}")
     public String deleteFirestation(@PathVariable String address) {
         boolean deleted = firestationService.deleteFirestation(address);
-        if(deleted){
+        if (deleted) {
             return "Firestation deleted successfully!";
-        } else{
+        } else {
             return "Firestation not found!";
         }
     }

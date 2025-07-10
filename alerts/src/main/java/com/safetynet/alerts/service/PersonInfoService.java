@@ -39,8 +39,8 @@ public class PersonInfoService {
                 info.setAddress(person.getAddress());
                 info.setEmail(person.getEmail());
 
-                for(MedicalRecord medical: medicalRecords){
-                    if(medical.getLastName().equalsIgnoreCase(lastName)){
+                for (MedicalRecord medical : medicalRecords) {
+                    if (medical.getLastName().equalsIgnoreCase(lastName)) {
                         int age = calculateAge(medical.getBirthdate());
                         info.setAge(age);
                         info.setMedications(medical.getMedications());
@@ -50,10 +50,10 @@ public class PersonInfoService {
                 }
                 result.add(info);
             }
-
         }
         return result;
     }
+
     private int calculateAge(String birthdate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate dob = LocalDate.parse(birthdate, formatter);
