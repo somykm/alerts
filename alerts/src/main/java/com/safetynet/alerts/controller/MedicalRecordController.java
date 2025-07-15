@@ -22,7 +22,7 @@ public class MedicalRecordController {
     }
 
     // 1. Fetch all medical records (GET)
-    @GetMapping("/all")
+    @GetMapping
     public List<MedicalRecord> getMedicalRecords() {
         return medicalRecordService.getAllMedicalRecords();
     }

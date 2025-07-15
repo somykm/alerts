@@ -32,7 +32,7 @@
     <properties>
         <java.version>21</java.version>
         <start-class>com.safetynet.alerts.AlertsApplication</start-class>
-        <mockito.version>5.4.0</mockito.version>
+<!--        <mockito.version>5.4.0</mockito.version>-->
     </properties>
     <dependencies>
         <dependency>
@@ -76,22 +76,22 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco</artifactId>
-            <version>0.8.13</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.jacoco</groupId>-->
+<!--            <artifactId>jacoco</artifactId>-->
+<!--            <version>0.8.7</version>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
-                    </argLine>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <argLine>-->
+<!--                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar-->
+<!--                    </argLine>-->
+<!--                </configuration>-->
             </plugin>
 
             <plugin>
@@ -124,6 +124,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>

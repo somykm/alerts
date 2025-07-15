@@ -20,7 +20,7 @@ public class FirestationController {
     }
 
     //get the list of firestation
-    @GetMapping("/all")
+    @GetMapping("")
     public List<Firestation> getFirestationsList() {
         return firestationService.getAllFireStations();
     }
