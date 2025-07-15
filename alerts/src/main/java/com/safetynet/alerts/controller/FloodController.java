@@ -6,16 +6,14 @@ import com.safetynet.alerts.service.FloodService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
 @RestController
-@Controller("/flood")
+@RequestMapping("/flood")
 public class FloodController {
     private final FloodService floodService;
 
@@ -24,8 +22,9 @@ public class FloodController {
         this.floodService = floodService;
     }
 
-    @GetMapping("/stations")
-    public Map<String, List<Flood>> getAllHouseholdServedByFirestation(@RequestParam Firestation stations) {
+    @GetMapping("/{stations}")
+    public Map<String, List<Flood>> getAllHouseholdServedByFirestation(@RequestParam List<String> stations) {
         return floodService.getAllHouseholdByFirestation(stations);
     }
+
 }

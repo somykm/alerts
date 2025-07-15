@@ -2,11 +2,12 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.service.FirestationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/firestations")
 public class FirestationController {

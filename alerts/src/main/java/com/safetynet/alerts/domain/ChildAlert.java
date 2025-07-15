@@ -11,4 +11,6 @@ public class ChildAlert {
     private int age;
     private List<String> householdMembers;
 
+//    public ChildAlert(String john, String doe, int i, List<String> janeDoe) {
+//    }
 }

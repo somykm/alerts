@@ -2,11 +2,13 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.service.MedicalRecordService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/medicalRecord")
 public class MedicalRecordController {

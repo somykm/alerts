@@ -2,11 +2,12 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.PersonRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 public class PersonService {
     private final PersonRepository personRepository;//dependency
@@ -18,7 +19,7 @@ public class PersonService {
 
     //get all people
     public List<Person> getAllPeople() {
-
+        log.info("Getting List of person {}");
         return personRepository.findAll();
     }
 
