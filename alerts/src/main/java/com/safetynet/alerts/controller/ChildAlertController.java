@@ -30,7 +30,7 @@ public class ChildAlertController {
         this.childAlertService= childAlertService;
     }
 
-    @GetMapping("/{address}")
+    @GetMapping("")
     public List<ChildAlert> getChildInfoByAddress(@RequestParam String address){
         return childAlertService.getChildInfoByAddress(address);
     }
