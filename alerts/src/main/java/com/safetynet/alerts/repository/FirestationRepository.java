@@ -24,13 +24,19 @@ public class FirestationRepository {
         jsonParser.getAllFirestation().add(firestation);
     }
 
+//    public Firestation findByAddress(String address) {
+//        for (Firestation firestation : jsonParser.getAllFirestation()) {
+//            if (firestation.getAddress().equalsIgnoreCase(address)) {
+//                return firestation;
+//            }
+//        }
+//        return null;
+//    }
     public Firestation findByAddress(String address) {
-        for (Firestation firestation : jsonParser.getAllFirestation()) {
-            if (firestation.getAddress().equalsIgnoreCase(address)) {
-                return firestation;
-            }
-        }
-        return null;
+        return jsonParser.getAllFirestation().stream()
+                .filter(f -> f.getAddress() != null && f.getAddress().equalsIgnoreCase(address))
+                .findFirst()
+                .orElse(null);
     }
 
     public void delete(Firestation firestation) {
@@ -40,7 +46,7 @@ public class FirestationRepository {
 
     public List<Firestation> findByStation(String station) {
         return jsonParser.getAllFirestation().stream()
-                .filter(firestation -> firestation.getStation().equalsIgnoreCase(station))
+                .filter(firestation -> firestation.getStation() != null && firestation.getStation() .equalsIgnoreCase(station))
                 .collect(Collectors.toList());
     }
 }

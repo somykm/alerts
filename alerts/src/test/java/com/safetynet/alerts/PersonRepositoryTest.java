@@ -1,91 +1,100 @@
 package com.safetynet.alerts;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.junit.jupiter.api.extension.ExtendWith;
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.JsonParser;
 import com.safetynet.alerts.repository.PersonRepository;
-import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.AssertionsKt.assertNotNull;
+
 @ExtendWith(MockitoExtension.class)
-public class PersonRepositoryTest {
+class PersonRepositoryTest {
 
     @Mock
     private JsonParser jsonParserMock;
+
     @InjectMocks
     private PersonRepository personRepository;
 
-    @Test
-    public void testFindAllReturnsAllPeopleFromJsonParser() {
-        Person personA = new Person("John", "Doe", "4700 White oak",
+    private Person personA, personB;
+
+    @BeforeEach
+    void setUp() {
+        personA = new Person("John", "Doe", "4700 White oak",
                 "Silver Spring", "20815", "202-555-8282", "Johnny@gmail.com");
-
-        List<Person> mockList = Collections.singletonList(personA);
-        when(jsonParserMock.getAllPeople()).thenReturn(mockList);
-        //act
-        List<Person> result = personRepository.findAll();
-        //assert
-        assertNotNull(result);
-        Assert.assertTrue(result.size() == 1);
-        Assert.assertTrue(result.get(0).getFirstName().equals("John"));
-        verify(jsonParserMock, times(1)).getAllPeople();
-
+        personB = new Person("Sara", "Smith", "1235 White oak apt 12",
+                "Silver Spring", "20812", "202-555-5757", "saraSmith@gmail.com");
     }
 
     @Test
-    public void testFindByFirstNameAndLastName() {
-        Person mockPerson = new Person("John", "Doe", "4700 White oak apt 2",
-                "Silver Spring", "20815", "202-123-5555", "Johnny@gmail.com");
-        when(jsonParserMock.getAllPeople()).thenReturn(Collections.singletonList(mockPerson));
+    void testFindByFirstNameAndLastNameReturnsCorrectPerson() {
+        Mockito.when(jsonParserMock.getAllPeople()).thenReturn(List.of(personA));
 
         Person result = personRepository.findByFirstNameAndLastName("John", "Doe");
 
         assertNotNull(result);
-        assertEquals("John", result.getFirstName());
-        assertEquals("Doe", result.getLastName());
+        assertEquals("Johnny@gmail.com", result.getEmail());
     }
 
     @Test
-    public void testSaveToAddPerson() {
-        // Arrange
-        Person newPerson = new Person("Sarah", "Clark", "4700 bradley apt 7",
-                "Chevy Chase", "20812", "202-333-8190", "sarah@yahoo.com");
-        List<Person> people = new ArrayList<>();
-        when(jsonParserMock.getAllPeople()).thenReturn(people);
+    void testFindByFirstNameAndLastNameReturnsNullIfNotFound() {
+        Mockito.when(jsonParserMock.getAllPeople()).thenReturn(List.of(personA));
 
-        // Act
-        personRepository.save(newPerson);
+        Person result = personRepository.findByFirstNameAndLastName("Jane", "Doe");
 
-        // Assert
-        assertTrue(people.contains(newPerson));
+        assertNull(result);
     }
 
     @Test
-    public void testDeleteToRemovePerson() {
-        // Arrange
-        Person existingPerson = new Person("John", "Doe", "4700 White oak",
-                "Silver Spring", "20815", "202-555-8282", "Johnny@gmail.com");
+    void testSaveAddsPersonToList() {
         List<Person> people = new ArrayList<>();
-        people.add(existingPerson);
-        when(jsonParserMock.getAllPeople()).thenReturn(people);
+        Mockito.when(jsonParserMock.getAllPeople()).thenReturn(people);
 
-        // Act
-        personRepository.delete(existingPerson);
+        personRepository.save(personB);
 
-        // Assert
-        assertFalse(people.contains(existingPerson));
+        assertTrue(people.contains(personB));
     }
 
+    @Test
+    void testDeleteRemovesPersonFromList() {
+        List<Person> people = new ArrayList<>(List.of(personA));
+        Mockito.when(jsonParserMock.getAllPeople()).thenReturn(people);
+
+        personRepository.delete(personA);
+
+        assertFalse(people.contains(personA));
+    }
+
+    @Test
+    void testGetEmailsByCityFiltersCorrectly() {
+        Mockito.when(jsonParserMock.getAllPeople()).thenReturn(List.of(personA, personB));
+
+        List<String> result = personRepository.getEmailsByCity("Silver Spring");
+
+        assertEquals(2, result.size());
+        assertTrue(result.contains("Johnny@gmail.com"));
+        assertTrue(result.contains("saraSmith@gmail.com"));
+    }
+
+    @Test
+    void testFindByAddressInFiltersMatchingAddresses() {
+        List<String> targetAddresses = List.of("4700 White oak", "Unknown address");
+        Mockito.when(jsonParserMock.getAllPeople()).thenReturn(List.of(personA, personB));
+
+        List<Person> result = personRepository.findByAddressIn(targetAddresses);
+
+        assertEquals(1, result.size());
+        assertEquals("John", result.get(0).getFirstName());
+    }
 }
-

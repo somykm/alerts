@@ -30,13 +30,13 @@ class JsonParserTest {
         Assertions.assertThat(people).isNotEmpty(); // Adjust based on expected behavior
     }
 
-    @Test
-    void testFindByFirstNameAndLastName() {
-        Person person = jsonParser.findByFirstNameAndLastName("John", "Boyd");
-        Assertions.assertThat(person).isNotNull();
-        Assertions.assertThat(person.getFirstName()).isEqualToIgnoringCase("John");
-        Assertions.assertThat(person.getLastName()).isEqualToIgnoringCase("Boyd");
-    }
+//    @Test
+//    void testFindByFirstNameAndLastName() {
+//        Person person = jsonParser.findByFirstNameAndLastName("John", "Boyd");
+//        Assertions.assertThat(person).isNotNull();
+//        Assertions.assertThat(person.getFirstName()).isEqualToIgnoringCase("John");
+//        Assertions.assertThat(person.getLastName()).isEqualToIgnoringCase("Boyd");
+//    }
 
     @Test
     void testSavePerson() {

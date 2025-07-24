@@ -2,12 +2,16 @@ package com.safetynet.alerts.ControllerTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.safetynet.alerts.controller.PeopleController;
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.service.PersonService;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
 public class PeopleControllerTest {
 
     @Autowired
@@ -33,6 +38,8 @@ public class PeopleControllerTest {
 
     @Mock
     private PersonService personServiceMock;
+    @InjectMocks
+    private PeopleController peopleController;
 
     @Test
     public void testGetPersonListFromPersonService() throws Exception {
