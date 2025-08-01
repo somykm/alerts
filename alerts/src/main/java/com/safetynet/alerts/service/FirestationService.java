@@ -22,6 +22,7 @@ public class FirestationService {
     }
 
     public List<Firestation> getAllFireStations() {
+
         return firestationRepository.findAll();
     }
 

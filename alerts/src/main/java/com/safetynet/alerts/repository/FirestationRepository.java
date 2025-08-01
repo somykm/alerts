@@ -23,15 +23,6 @@ public class FirestationRepository {
     public void save(Firestation firestation) {
         jsonParser.getAllFirestation().add(firestation);
     }
-
-//    public Firestation findByAddress(String address) {
-//        for (Firestation firestation : jsonParser.getAllFirestation()) {
-//            if (firestation.getAddress().equalsIgnoreCase(address)) {
-//                return firestation;
-//            }
-//        }
-//        return null;
-//    }
     public Firestation findByAddress(String address) {
         return jsonParser.getAllFirestation().stream()
                 .filter(f -> f.getAddress() != null && f.getAddress().equalsIgnoreCase(address))

@@ -1,98 +1,88 @@
-//package com.safetynet.alerts.ControllerTest;
-//
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//
-//import com.safetynet.alerts.controller.PeopleController;
-//import com.safetynet.alerts.domain.Person;
-//import com.safetynet.alerts.service.PersonService;
-//
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.mockito.Mockito;
-//import org.springframework.http.MediaType;
-//import org.springframework.test.web.servlet.MockMvc;
-//
-//import java.util.Arrays;
-//import java.util.List;
-//
-//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.web.servlet.ResultMatcher;
-//
-//import static org.mockito.Mockito.when;
-//import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//
-//@SpringBootTest
-//@AutoConfigureMockMvc
-//@ExtendWith(MockitoExtension.class)
-//public class PeopleControllerTest {
-//
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @Mock
-//    private PersonService personServiceMock;
-//    @InjectMocks
-//    private PeopleController peopleController;
-//
-//    @Test
-//    public void testGetPersonListFromPersonService() throws Exception {
-//        // Arrange
-//        Person mockPerson1 = new Person("John", "Doe", "4700 White oak",
-//                "Silver Spring", "20815", "202-555-8282", "Johnny@gmail.com");
-//        Person mockPerson2 = new Person("Sara", "Smith", "1235 White oak apt 12",
-//                "Silver Spring", "20812", "202-555-5757", "saraSmith@gmail.com");
-//
-//        List<Person> mockList = Arrays.asList(mockPerson1, mockPerson2);
-//        when(personServiceMock.getAllPeople()).thenReturn(mockList);
-//
-//        // Act & Assert
-//        mockMvc.perform(get("/person"))  // Adjust the endpoint if needed
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.length()").value(2))
-//                .andExpect(jsonPath("$[0].firstName").value("John"))
-//                .andExpect(jsonPath("$[1].firstName").value("Sara"));
-//    }
-//
-//    @Test
-//    public void testAddPerson() throws Exception {
-//        Person person = new Person("John", "Doe", "4777 White oak apt 5",
-//                "Silver Spring", "20812", "202-555-8888", "Johnny125@gmail.com");
-//        when(personServiceMock.addPerson(Mockito.any(Person.class))).thenReturn(person);
-//
-//        mockMvc.perform(post("/person")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(new ObjectMapper().writeValueAsString(person)))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.firstName").value("John"));
-//    }
-//
-//    @Test
-//    public void testUpdatePerson() throws Exception {
-//        Person updatedPerson = new Person("John", "Doe", "4700 White oak",
-//                "Silver Spring", "20815", "202-555-8282", "Johnny@gmail.com");
-//
-//        when(personServiceMock.updatePerson("John", "Doe", updatedPerson)).thenReturn(true);
-//
-//        mockMvc.perform(put("/person/John/Doe")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(new ObjectMapper().writeValueAsString(updatedPerson)))
-//                .andExpect(status().isOk());
-//    }
-//
-//    @Test
-//    public void testDeletePerson() throws Exception {
-//        when(personServiceMock.deletePerson("John", "Doe")).thenReturn(true);
-//
-//        mockMvc.perform(delete("/person/John/Doe"))
-//                .andExpect(status().isOk())
-//                .andExpect((ResultMatcher) content().string("Person deleted successfully."));
-//    }
-//}
+package com.safetynet.alerts.ControllerTest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safetynet.alerts.controller.PeopleController;
+import com.safetynet.alerts.domain.Person;
+import com.safetynet.alerts.service.PersonService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@WebMvcTest(PeopleController.class)
+public class PeopleControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockitoBean
+    private PersonService personService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    private Person samplePerson;
+
+    @BeforeEach
+    void setUp() {
+        samplePerson = new Person("John", "Smith", "123 Street", "City", "12345", "1234567890", "john@example.com");
+    }
+
+    @Test
+    void testGetPersonList() throws Exception {
+        Mockito.when(personService.getAllPeople()).thenReturn(List.of(samplePerson));
+
+        mockMvc.perform(get("/person/all"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].firstName").value("John"));
+    }
+
+    @Test
+    void testAddPerson() throws Exception {
+        Mockito.when(personService.addPerson(any(Person.class))).thenReturn(samplePerson);
+
+        mockMvc.perform(post("/person")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(samplePerson)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.lastName").value("Smith"));
+    }
+
+    @Test
+    void testUpdatePerson() throws Exception {
+        Mockito.when(personService.updatePerson(eq("John"), eq("Doe"), any(Person.class))).thenReturn(true);
+
+        mockMvc.perform(put("/person/John/Doe")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(samplePerson)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
+
+    @Test
+    void testDeletePersonSuccess() throws Exception {
+        Mockito.when(personService.deletePerson("John", "Doe")).thenReturn(true);
+
+        mockMvc.perform(delete("/person/John/Doe"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Person deleted successfully."));
+    }
+
+    @Test
+    void testDeletePersonNotFound() throws Exception {
+        Mockito.when(personService.deletePerson("John", "Doe")).thenReturn(false);
+
+        mockMvc.perform(delete("/person/John/Doe"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Person not found!"));
+    }
+}
