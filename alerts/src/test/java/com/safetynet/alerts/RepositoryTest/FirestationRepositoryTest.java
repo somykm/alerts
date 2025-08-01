@@ -1,4 +1,4 @@
-package com.safetynet.alerts;
+package com.safetynet.alerts.RepositoryTest;
 
 import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.repository.FirestationRepository;
@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;

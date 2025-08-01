@@ -18,6 +18,7 @@ public class MedicalRecordService {
 
     // Get all medical records
     public List<MedicalRecord> getAllMedicalRecords() {
+
         return medicalRecordRepository.findAll();
     }
 

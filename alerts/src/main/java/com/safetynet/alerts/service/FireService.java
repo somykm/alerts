@@ -15,12 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-/*
-http://localhost:8080/fire?address=<address>
-This URL must return the list of residents living at the given address as well as the fire
-station number serving the address. The list must include the name, phone number,
-age, and medical history (medications, dosages, and allergies) of each person.
- */
+
 
 @Service
 public class FireService {

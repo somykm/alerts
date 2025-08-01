@@ -30,6 +30,7 @@ public class MedicalRecordRepository {
     }
 
     public void save(MedicalRecord medicalRecord) {
+
         jsonParser.getAllMedicalRecords().add(medicalRecord);
     }
 

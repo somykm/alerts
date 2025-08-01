@@ -1,4 +1,4 @@
-package com.safetynet.alerts;
+package com.safetynet.alerts.ServiceTest;
 
 import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.domain.Person;
@@ -8,12 +8,15 @@ import com.safetynet.alerts.repository.PersonRepository;
 import com.safetynet.alerts.service.FirestationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class FirestasionServiceTest {
     private FirestationRepository firestationRepository;
     private PersonRepository personRepository;

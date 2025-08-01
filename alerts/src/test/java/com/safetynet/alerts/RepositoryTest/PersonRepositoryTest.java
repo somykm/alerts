@@ -1,4 +1,4 @@
-package com.safetynet.alerts;
+package com.safetynet.alerts.RepositoryTest;
 
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.JsonParser;
