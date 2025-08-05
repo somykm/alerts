@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/communityEmail")
 public class CommunityEmailController {
-
     private PersonService personService;
 
     @Autowired

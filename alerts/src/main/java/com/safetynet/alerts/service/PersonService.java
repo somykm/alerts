@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Slf4j
 @Service
 public class PersonService {
@@ -17,7 +18,6 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    //get all people
     public List<Person> getAllPeople() {
         log.info("Getting List of person {}");
         return personRepository.findAll();

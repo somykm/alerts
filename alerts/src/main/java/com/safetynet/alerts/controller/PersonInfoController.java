@@ -14,7 +14,6 @@ import java.util.List;
 public class PersonInfoController {
     private final PersonInfoService personInfoService;
 
-
     @Autowired
     public PersonInfoController(PersonInfoService personInfoService) {
         super();

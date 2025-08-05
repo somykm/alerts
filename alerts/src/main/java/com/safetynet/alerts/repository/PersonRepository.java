@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//repository allows you to retrieve and delete a person using as identifiers.
 @Repository
 public class PersonRepository {
     private final JsonParser jsonParser;

@@ -52,6 +52,5 @@ public class FirestationAreaService {
 
         return response;
     }
-
 }
 

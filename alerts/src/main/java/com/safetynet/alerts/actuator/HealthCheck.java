@@ -12,14 +12,14 @@ public class HealthCheck implements HealthIndicator {
     private PersonService personService;
 
     @Autowired
-    public HealthCheck(PersonService personService){
-    super();
-    this.personService = personService;
+    public HealthCheck(PersonService personService) {
+        super();
+        this.personService = personService;
     }
 
     @Override
     public Health health() {
-        if(personService.getAllPeople()==null){
+        if (personService.getAllPeople() == null) {
             return Health.down().withDetail("Cause", "OMDV API is not available").build();
         }
         return Health.up().build();

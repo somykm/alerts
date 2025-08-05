@@ -16,20 +16,17 @@ public class MedicalRecordService {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-    // Get all medical records
     public List<MedicalRecord> getAllMedicalRecords() {
 
         return medicalRecordRepository.findAll();
     }
 
-    // Add a new medical record
     public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
         medicalRecordRepository.save(medicalRecord);
         System.out.println("Medical record added: " + medicalRecord);
         return medicalRecord;
     }
 
-    // Update an existing medical record
     public boolean updateMedicalRecord(String firstName, String lastName, MedicalRecord updatedRecord) {
         MedicalRecord medicalRecord = medicalRecordRepository.findByFirstNameAndLastName(firstName, lastName);
 
@@ -42,7 +39,6 @@ public class MedicalRecordService {
         return false;
     }
 
-    // Delete a medical record
     public boolean deleteMedicalRecord(String firstName, String lastName) {
         MedicalRecord medicalRecord = medicalRecordRepository.findByFirstNameAndLastName(firstName, lastName);
 

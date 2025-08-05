@@ -4,14 +4,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.domain.Person;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 public class Wrapper {
     @JsonProperty("persons")
     private List<Person> person;
+    @Getter
+    @Setter
     @JsonProperty("firestations")
     private List<Firestation> firestations;
+    @Getter
+    @Setter
     @JsonProperty("medicalrecords")
     private List<MedicalRecord> medicalRecords;
 
@@ -30,19 +36,4 @@ public class Wrapper {
         return "Wrapper {" + "person =" + person + "}";
     }
 
-    public void setFirestations(List<Firestation> firestations) {
-        this.firestations = firestations;
-    }
-
-    public List<Firestation> getFirestations() {
-        return firestations;
-    }
-
-    public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
-        this.medicalRecords = medicalRecords;
-    }
-
-    public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecords;
-    }
 }

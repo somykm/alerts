@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/childAlert")
-@Controller("/childAlert")
+@Controller
 public class ChildAlertController {
     private final ChildAlertService childAlertService;
 
@@ -26,6 +26,8 @@ public class ChildAlertController {
 
     @GetMapping("")
     public List<ChildAlert> getChildInfoByAddress(@RequestParam String address) {
+        log.info("Fetching child data by address\n" +
+                "which return a list of children living at this address:" + address);
         return childAlertService.getChildInfoByAddress(address);
     }
 }

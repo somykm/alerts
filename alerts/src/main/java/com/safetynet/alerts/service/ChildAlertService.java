@@ -31,7 +31,6 @@ public class ChildAlertService {
         List<ChildAlert> results = new ArrayList<>();
 
         for (Person person : residents) {
-            // Get medical record to find birthdate
             MedicalRecord medicalRecord = medicalRecordRepository.findByFirstNameAndLastName(
                     person.getFirstName(), person.getLastName()
             );
@@ -44,7 +43,6 @@ public class ChildAlertService {
                 for (Person otherMember : residents) {
                     if (!otherMember.getFirstName().equalsIgnoreCase(person.getFirstName()) ||
                             !otherMember.getLastName().equalsIgnoreCase(person.getLastName())) {
-                        // Add full name of household member
                         otherHouseHoldMember.add(otherMember.getFirstName() + " " + otherMember.getLastName());
                     }
                 }

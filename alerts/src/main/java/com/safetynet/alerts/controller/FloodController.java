@@ -1,11 +1,9 @@
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.domain.Flood;
 import com.safetynet.alerts.service.FloodService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +20,8 @@ public class FloodController {
         this.floodService = floodService;
     }
 
-    @GetMapping("/{stations}")
+    @GetMapping("/stations")
     public Map<String, List<Flood>> getAllHouseholdServedByFirestation(@RequestParam List<String> stations) {
         return floodService.getAllHouseholdByFirestation(stations);
     }
-
 }

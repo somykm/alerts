@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @Controller("/fire")
 public class FireController {
-
     private final FireService fireService;
 
     @Autowired

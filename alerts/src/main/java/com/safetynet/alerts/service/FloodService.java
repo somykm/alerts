@@ -4,7 +4,6 @@ import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.domain.Flood;
 import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.domain.Person;
-import com.safetynet.alerts.repository.FirestationRepository;
 import com.safetynet.alerts.repository.JsonParser;
 import com.safetynet.alerts.repository.MedicalRecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class FloodService {
@@ -37,7 +35,7 @@ public class FloodService {
 
         List<Firestation> findRelatedStations = jsonParser.getAllFirestation().stream()
                 .filter(fs -> firestationNumber.contains(fs.getStation()))
-                .collect(Collectors.toList());
+                .toList();
 
         for (Firestation station : findRelatedStations) {
             String address = station.getAddress();

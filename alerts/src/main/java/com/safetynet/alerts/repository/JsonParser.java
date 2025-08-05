@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class JsonParser {
     ObjectMapper objectMapper = new ObjectMapper();
-    URL resourceUrl = getClass().getClassLoader().getResource("data-test.json");
+    URL resourceUrl = getClass().getClassLoader().getResource("data.json");
     File jsonFile = new File(resourceUrl.getFile());
     List<Person> persons = new ArrayList<>();
     List<Firestation> firestations = new ArrayList<>();
@@ -33,7 +33,7 @@ public class JsonParser {
             if (wrapper != null && wrapper.getPersons() != null) {
                 persons = wrapper.getPersons();
             } else {
-                persons = new ArrayList<>(); // Ensure we always have a valid list
+                persons = new ArrayList<>();
                 System.err.println("Warning: No persons found in the JSON file.");
             }
         } catch (IOException e) {
@@ -71,12 +71,12 @@ public class JsonParser {
             if (wrapper != null && wrapper.getFirestations() != null) {
                 firestations = wrapper.getFirestations();
             } else {
-                firestations = new ArrayList<>(); // Ensure we always have a valid list
+                firestations = new ArrayList<>();
                 System.err.println("Warning: No firestation found in the JSON file.");
             }
         } catch (IOException e) {
             System.err.println("Error loading data from JSON file: " + e.getMessage());
-            firestations = new ArrayList<>(); // Avoid breaking the program due to JSON issues
+            firestations = new ArrayList<>();
         }
     }
 
@@ -114,7 +114,7 @@ public class JsonParser {
             }
         } catch (IOException e) {
             System.err.println("Error loading data from JSON file: " + e.getMessage());
-            medicalRecords = new ArrayList<>(); // Avoid breaking the program due to JSON issues
+            medicalRecords = new ArrayList<>();
         }
     }
 

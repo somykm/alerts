@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/FirestationArea")
+@RequestMapping("/firestationArea")
 public class FirestationAreaController {
-
     private final FirestationAreaService firestationAreaService;
 
     @Autowired
@@ -19,8 +18,8 @@ public class FirestationAreaController {
         this.firestationAreaService = firestationAreaService;
     }
 
-    @GetMapping("/{station}")
-    public FirestationArea getResidentInfoByStation(@PathVariable String station) {
+    @GetMapping("/station")
+    public FirestationArea getResidentInfoByStation(@RequestParam String station) {
         return firestationAreaService.getResidentInfoByStation(station);
     }
 }

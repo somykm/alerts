@@ -20,19 +20,16 @@ public class FirestationController {
         this.firestationService = firestationService;
     }
 
-    //get the list of firestation
     @GetMapping("")
     public List<Firestation> getFirestationsList() {
         return firestationService.getAllFireStations();
     }
 
-    //add firestation (post)
     @PostMapping
     public Firestation addFirestation(@RequestBody Firestation firestation) {
         return firestationService.addFirestation(firestation);
     }
 
-    //update firestation (put)
     @PutMapping("/{address}")
     public boolean updateFirestation(@PathVariable String address,
                                      @RequestBody Firestation updatedFirestation) {

@@ -21,19 +21,16 @@ public class MedicalRecordController {
         this.medicalRecordService = medicalRecordService;
     }
 
-    // 1. Fetch all medical records (GET)
     @GetMapping
     public List<MedicalRecord> getMedicalRecords() {
         return medicalRecordService.getAllMedicalRecords();
     }
 
-    // 2. Add a new medical record (POST)
     @PostMapping
     public MedicalRecord addMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         return medicalRecordService.addMedicalRecord(medicalRecord);
     }
 
-    // 3. Update an existing medical record (PUT)
     @PutMapping("/{firstName}/{lastName}")
     public boolean updateMedicalRecord(
             @PathVariable String firstName,
@@ -42,11 +39,10 @@ public class MedicalRecordController {
         return medicalRecordService.updateMedicalRecord(firstName, lastName, updatedRecord);
     }
 
-    // 4. Delete a medical record (DELETE)
     @DeleteMapping("/{firstName}/{lastName}")
     public String deleteMedicalRecord(@PathVariable String firstName,
                                       @PathVariable String lastName) {
         boolean deleted = medicalRecordService.deleteMedicalRecord(firstName, lastName);
-        return deleted ? "Medical record deleted successfully." : "Medical record not found!";
+        return deleted ? "The person deleted successfully from Medical record list." : "Medical record not found!";
     }
 }
