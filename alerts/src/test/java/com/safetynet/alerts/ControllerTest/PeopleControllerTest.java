@@ -1,4 +1,5 @@
 package com.safetynet.alerts.ControllerTest;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.controller.PeopleController;
 import com.safetynet.alerts.domain.Person;

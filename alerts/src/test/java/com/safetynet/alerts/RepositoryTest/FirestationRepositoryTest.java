@@ -42,26 +42,19 @@ public class FirestationRepositoryTest {
         List<Firestation> result = firestationRepository.findAll();
         Assertions.assertEquals(3, result.size());
     }
-//    @Test
-//    void testIfStation_Can_FindByAddress() {
-//        Firestation result = firestationRepository.findByAddress("456 Elm St");
-//        Assertions.assertNotNull(result);
-//        Assertions.assertEquals("2", result.getStation());
-//    }
+
+    @Test
+    void testIfStationCanFindByAddress() {
+        Firestation result = firestationRepository.findByAddress("456 Elm St");
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("2", result.getStation());
+    }
+
     @Test
     void testIfStation_CanNot_FindByAddress() {
         Firestation result = firestationRepository.findByAddress("000 Unknown St");
         Assertions.assertNull(result);
     }
-
-//    @Test
-//    void testDelete() {
-//        Firestation toDelete = mockFirestations.getFirst();
-//        firestationRepository.delete(toDelete);
-//        // Check that the list no longer contains the deleted item
-//        Assertions.assertTrue(mockFirestations.contains(toDelete));
-//    }
-
 
     @Test
     void testIfCanFindStationByStationNumberIf_NotFound() {

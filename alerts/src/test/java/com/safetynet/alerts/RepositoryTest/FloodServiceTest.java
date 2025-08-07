@@ -7,7 +7,6 @@ import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.JsonParser;
 import com.safetynet.alerts.repository.MedicalRecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
-
 import com.safetynet.alerts.service.FloodService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,14 +40,13 @@ public class FloodServiceTest {
 
     @Test
     void testGetAllHouseholdByFirestation() {
-        // Setup mock firestation
+
         Firestation firestation = new Firestation();
         firestation.setAddress("555 Bradley St");
         firestation.setStation("1");
 
         when(jsonParser.getAllFirestation()).thenReturn(List.of(firestation));
 
-        // Setup mock person
         Person person = new Person();
         person.setFirstName("John");
         person.setLastName("Doe");
@@ -57,7 +55,6 @@ public class FloodServiceTest {
 
         when(personRepository.findByAddressIn(List.of("555 Bradley St"))).thenReturn(List.of(person));
 
-        // Setup mock medical record
         MedicalRecord record = new MedicalRecord();
         record.setFirstName("John");
         record.setLastName("Doe");
@@ -67,15 +64,13 @@ public class FloodServiceTest {
 
         when(medicalRecordRepository.findByFirstNameAndLastName("John", "Doe")).thenReturn(record);
 
-        // Execute
         Map<String, List<Flood>> result = floodService.getAllHouseholdByFirestation(List.of("1"));
 
-        // Verify
         assertTrue(result.containsKey("555 Bradley St"));
         List<Flood> floods = result.get("555 Bradley St");
         assertEquals(1, floods.size());
 
-        Flood flood = floods.get(0);
+        Flood flood = floods.getFirst();
         assertEquals("John", flood.getFirstName());
         assertEquals("Doe", flood.getLastName());
         assertEquals("123-456-5555", flood.getPhone());

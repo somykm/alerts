@@ -4,7 +4,6 @@ import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.FirestationRepository;
 import com.safetynet.alerts.repository.PersonRepository;
-
 import com.safetynet.alerts.service.FirestationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

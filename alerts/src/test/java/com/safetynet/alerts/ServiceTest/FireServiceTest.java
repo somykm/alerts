@@ -64,7 +64,7 @@ public class FireServiceTest {
         assertEquals("3", resident.getStation());
         assertEquals(Arrays.asList("medication1", "medication2"), resident.getMedications());
         assertEquals(List.of("allergy1"), resident.getAllergies());
-        assertTrue(resident.getAge() > 30); // assuming current year > 2020
+        assertTrue(resident.getAge() > 30);
     }
 }
 

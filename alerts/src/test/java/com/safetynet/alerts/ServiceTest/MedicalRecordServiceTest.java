@@ -2,7 +2,6 @@ package com.safetynet.alerts.ServiceTest;
 
 import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.repository.MedicalRecordRepository;
-
 import com.safetynet.alerts.service.MedicalRecordService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

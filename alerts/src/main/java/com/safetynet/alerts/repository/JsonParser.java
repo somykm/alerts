@@ -64,7 +64,7 @@ public class JsonParser {
     }
 
     /************************Firestation*************************************************/
-    void loadDataForFirestation() {
+    public void loadDataForFirestation() {
         try {
             Wrapper wrapper = objectMapper.readValue(jsonFile, Wrapper.class);
 
@@ -93,7 +93,7 @@ public class JsonParser {
         return firestations;
     }
 
-    void addFirestation(Firestation firestation) {
+    public void addFirestation(Firestation firestation) {
         firestations.add(firestation);
     }
 
@@ -131,7 +131,7 @@ public class JsonParser {
         return medicalRecords;
     }
 
-    void addMedicalRecord(MedicalRecord medicalRecord) {
+    public void addMedicalRecord(MedicalRecord medicalRecord) {
         medicalRecords.add(medicalRecord);
     }
 
