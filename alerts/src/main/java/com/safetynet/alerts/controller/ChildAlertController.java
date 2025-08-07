@@ -24,10 +24,21 @@ public class ChildAlertController {
         this.childAlertService = childAlertService;
     }
 
-    @GetMapping("")
+    @GetMapping
     public List<ChildAlert> getChildInfoByAddress(@RequestParam String address) {
-        log.info("Fetching child data by address\n" +
-                "which return a list of children living at this address:" + address);
-        return childAlertService.getChildInfoByAddress(address);
+        log.info("Fetching child data by address: {}", address);
+
+        try {
+            log.debug("Calling service to get child info...");
+            List<ChildAlert> children = childAlertService.getChildInfoByAddress(address);
+
+            log.info("Found {} children at address: {}", children.size(), address);
+            return children;
+        } catch (Exception e) {
+            log.error("Failed to get child info for address: {}", address, e);
+            throw e;
+        }
     }
 }
+
+

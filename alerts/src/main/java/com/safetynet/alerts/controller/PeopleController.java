@@ -29,7 +29,7 @@ public class PeopleController {
 
     @PostMapping
     public Person addPerson(@RequestBody Person person) {
-
+        log.info("POST request received to add person: {} {}", person.getFirstName(), person.getLastName());
         return personService.addPerson(person);
     }
 
@@ -38,7 +38,7 @@ public class PeopleController {
             @PathVariable String firstName,
             @PathVariable String lastName,
             @RequestBody Person updatedPerson) {
-
+        log.info("PUT request received to update person: {} {}", firstName, lastName);
         return personService.updatePerson(firstName, lastName, updatedPerson);
     }
 
@@ -47,10 +47,13 @@ public class PeopleController {
             @PathVariable String firstName,
             @PathVariable String lastName
     ) {
+        log.info("DELETE request received for person: {} {}", firstName, lastName);
         boolean deleted = personService.deletePerson(firstName, lastName);
         if (deleted) {
+            log.info("Successfully deleted person: {} {}", firstName, lastName);
             return "Person deleted successfully.";
         } else {
+            log.warn("Person not found: {} {}", firstName, lastName);
             return "Person not found!";
         }
     }

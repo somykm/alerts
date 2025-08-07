@@ -23,7 +23,7 @@ public class PhoneAlertController {
 
     @GetMapping("")
     public List<String> getPhoneNumberByFirestation(@RequestParam String firestation) {
-        log.info("Fetching phone alert by station number \n,return a list of phone numbers of residents served by the fire station" + firestation);
+        log.info("GET request received for phone alert - Firestation: {}", firestation);
         return firestationService.getPhoneNumbersByFirestation(firestation);
     }
 }

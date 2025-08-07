@@ -3,12 +3,14 @@ package com.safetynet.alerts.service;
 import com.safetynet.alerts.domain.FireResidents;
 import com.safetynet.alerts.domain.FirestationArea;
 import com.safetynet.alerts.domain.Person;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class FirestationAreaService {
 
@@ -23,6 +25,7 @@ public class FirestationAreaService {
     }
 
     public FirestationArea getResidentInfoByStation(String station) {
+        log.info("Fetching resident info for firestation: {}", station);
         List<String> addresses = firestationService.getAddressesByStation(station);
         List<FireResidents> residentsInfo = fireService.getResidentAndStationByAddress(addresses);
 
@@ -45,6 +48,8 @@ public class FirestationAreaService {
                 adultCount++;
             }
         }
+        log.info("Station {} has {} adult(s) and {} child(ren)", station, adultCount, childCount);
+
         FirestationArea response = new FirestationArea();
         response.setResidents(residentsData);
         response.setAdultCount(adultCount);
@@ -53,4 +58,3 @@ public class FirestationAreaService {
         return response;
     }
 }
-

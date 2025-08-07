@@ -5,6 +5,7 @@ import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.MedicalRecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class ChildAlertService {
 
@@ -27,7 +29,9 @@ public class ChildAlertService {
     }
 
     public List<ChildAlert> getChildInfoByAddress(String address) {
+        log.info("Fetching child alert information for address: {}", address);
         List<Person> residents = personRepository.findByAddressIn(List.of(address));
+        log.info("Found {} residents at address {}", residents.size(), address);
         List<ChildAlert> results = new ArrayList<>();
 
         for (Person person : residents) {
@@ -35,10 +39,13 @@ public class ChildAlertService {
                     person.getFirstName(), person.getLastName()
             );
             if (medicalRecord == null) {
+                log.warn("No medical record found for {} {}", person.getFirstName(), person.getLastName());
                 continue;
             }
             int age = calculateAgeFromBirthdate(medicalRecord.getBirthdate());
+            log.debug("Calculated age for {} {}: {}", person.getFirstName(), person.getLastName(), age);
             if (age <= 18) {
+                log.info("Child found: {} {}, age {}", person.getFirstName(), person.getLastName(), age);
                 List<String> otherHouseHoldMember = new ArrayList<>();
                 for (Person otherMember : residents) {
                     if (!otherMember.getFirstName().equalsIgnoreCase(person.getFirstName()) ||
@@ -55,6 +62,7 @@ public class ChildAlertService {
                 results.add(childAlert);
             }
         }
+        log.info("Returning {} child alert(s) for address {}", results.size(), address);
         return results;
     }
 

@@ -23,11 +23,13 @@ public class MedicalRecordController {
 
     @GetMapping
     public List<MedicalRecord> getMedicalRecords() {
+        log.info("Fetching all medical records");
         return medicalRecordService.getAllMedicalRecords();
     }
 
     @PostMapping
     public MedicalRecord addMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+        log.info("Adding medical record for: {} {}", medicalRecord.getFirstName(), medicalRecord.getLastName());
         return medicalRecordService.addMedicalRecord(medicalRecord);
     }
 
@@ -36,12 +38,14 @@ public class MedicalRecordController {
             @PathVariable String firstName,
             @PathVariable String lastName,
             @RequestBody MedicalRecord updatedRecord) {
+        log.info("Updating medical record for: {} {}", firstName, lastName);
         return medicalRecordService.updateMedicalRecord(firstName, lastName, updatedRecord);
     }
 
     @DeleteMapping("/{firstName}/{lastName}")
     public String deleteMedicalRecord(@PathVariable String firstName,
                                       @PathVariable String lastName) {
+        log.info("Deleting medical record for: {} {}", firstName, lastName);
         boolean deleted = medicalRecordService.deleteMedicalRecord(firstName, lastName);
         return deleted ? "The person deleted successfully from Medical record list." : "Medical record not found!";
     }

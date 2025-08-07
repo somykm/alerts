@@ -3,6 +3,7 @@ package com.safetynet.alerts.service;
 import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.domain.PersonInfolastName;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class PersonInfoService {
 
@@ -26,6 +28,7 @@ public class PersonInfoService {
     }
 
     public List<PersonInfolastName> getPersonInfoByLastName(String lastName) {
+        log.info("Fetching person info for last name: {}", lastName);
         List<Person> persons = personService.getAllPeople();
         List<MedicalRecord> medicalRecords = medicalRecordService.getAllMedicalRecords();
 
@@ -45,10 +48,12 @@ public class PersonInfoService {
                         info.setAge(age);
                         info.setMedications(medical.getMedications());
                         info.setAllergies(medical.getAllergies());
+                        log.debug("Matched medical record for: {} {}", medical.getFirstName(), medical.getLastName());
                         break;
                     }
                 }
                 result.add(info);
+                log.info("Added person info for: {} {}", person.getFirstName(), person.getLastName());
             }
         }
         return result;

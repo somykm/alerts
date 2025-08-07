@@ -38,7 +38,7 @@ public class JsonParser {
             }
         } catch (IOException e) {
             System.err.println("Error loading data from JSON file: " + e.getMessage());
-            persons = new ArrayList<>(); // Avoid breaking the program due to JSON issues
+            persons = new ArrayList<>();
         }
     }
 

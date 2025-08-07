@@ -22,6 +22,7 @@ public class FloodController {
 
     @GetMapping("/stations")
     public Map<String, List<Flood>> getAllHouseholdServedByFirestation(@RequestParam List<String> stations) {
+        log.info("Received request to fetch households served by fire stations: {}", stations);
         return floodService.getAllHouseholdByFirestation(stations);
     }
 }

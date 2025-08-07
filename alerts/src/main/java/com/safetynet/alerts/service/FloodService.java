@@ -7,6 +7,7 @@ import com.safetynet.alerts.domain.Person;
 import com.safetynet.alerts.repository.JsonParser;
 import com.safetynet.alerts.repository.MedicalRecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+@Slf4j
 @Service
 public class FloodService {
 
@@ -40,6 +42,7 @@ public class FloodService {
         for (Firestation station : findRelatedStations) {
             String address = station.getAddress();
             List<Person> persons = personRepository.findByAddressIn(List.of(address));
+            log.info("Found {} person(s) at address {}", persons.size(), address);
             List<Flood> householdInFlooding = new ArrayList<>();
 
             for (Person person : persons) {
@@ -59,6 +62,9 @@ public class FloodService {
                     flood.setAllergies(record.getAllergies());
 
                     householdInFlooding.add(flood);
+                    log.debug("Added flood record for {} {}", person.getFirstName(), person.getLastName());
+                } else {
+                    log.warn("Missing medical record for {} {}", person.getFirstName(), person.getLastName());
                 }
             }
             groupedHouseholds.put(address, householdInFlooding);

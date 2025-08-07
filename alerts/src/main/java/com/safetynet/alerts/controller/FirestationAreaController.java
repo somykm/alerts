@@ -20,6 +20,16 @@ public class FirestationAreaController {
 
     @GetMapping("/station")
     public FirestationArea getResidentInfoByStation(@RequestParam String station) {
-        return firestationAreaService.getResidentInfoByStation(station);
+        log.info("Received request to fetch resident info for fire station: {}", station);
+
+        FirestationArea residentInfo = firestationAreaService.getResidentInfoByStation(station);
+
+        if (residentInfo == null) {
+            log.warn("No resident info found for this station: {}", station);
+        } else {
+            log.info("Successfully retrieved resident info for station: {}", station);
+        }
+
+        return residentInfo;
     }
 }

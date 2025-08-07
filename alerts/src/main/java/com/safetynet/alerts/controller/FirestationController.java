@@ -22,23 +22,27 @@ public class FirestationController {
 
     @GetMapping("")
     public List<Firestation> getFirestationsList() {
+        log.info("Fetching list of all firestations");
         return firestationService.getAllFireStations();
     }
 
     @PostMapping
     public Firestation addFirestation(@RequestBody Firestation firestation) {
+        log.info("Adding new firestation at address: {}", firestation.getAddress());
         return firestationService.addFirestation(firestation);
     }
 
     @PutMapping("/{address}")
     public boolean updateFirestation(@PathVariable String address,
                                      @RequestBody Firestation updatedFirestation) {
-
+        log.info("Updating firestation at address: {}", address);
         return firestationService.updateFirestation(address, updatedFirestation);
     }
 
+
     @DeleteMapping("/{address}")
     public String deleteFirestation(@PathVariable String address) {
+        log.info("Deleting firestation at address: {}", address);
         boolean deleted = firestationService.deleteFirestation(address);
         if (deleted) {
             return "Firestation deleted successfully!";
@@ -47,6 +51,3 @@ public class FirestationController {
         }
     }
 }
-
-
-

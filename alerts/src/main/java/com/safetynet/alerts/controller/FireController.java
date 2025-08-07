@@ -24,7 +24,17 @@ public class FireController {
 
     @GetMapping("/{address}")
     public List<FireResidents> getResidentAndStationByAddress(@RequestParam List<String> address) {
-        log.info("Fetching residents data by address" + address);
-        return fireService.getResidentAndStationByAddress(address);
+        log.info("Requesting to fetch fire station and residents for address: {}", address);
+
+        List<FireResidents> residents = fireService.getResidentAndStationByAddress(address);
+
+        if (residents.isEmpty()) {
+            log.warn("No residents found for address: {}", address);
+        } else {
+            log.info("Fetched {} resident for address: {}", residents.size(), address);
+        }
+
+        return residents;
     }
+
 }
