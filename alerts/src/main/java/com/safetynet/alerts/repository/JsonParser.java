@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.domain.Firestation;
 import com.safetynet.alerts.domain.MedicalRecord;
 import com.safetynet.alerts.domain.Person;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -11,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Component
 public class JsonParser {
     ObjectMapper objectMapper = new ObjectMapper();
@@ -32,12 +34,14 @@ public class JsonParser {
 
             if (wrapper != null && wrapper.getPersons() != null) {
                 persons = wrapper.getPersons();
+                log.info("Loaded {} persons from JSON.", persons.size());
+
             } else {
                 persons = new ArrayList<>();
-                System.err.println("Warning: No persons found in the JSON file.");
+                log.warn("No persons found in the JSON file.");
             }
         } catch (IOException e) {
-            System.err.println("Error loading data from JSON file: " + e.getMessage());
+            log.error("Error loading persons from JSON file: {}", e.getMessage());
             persons = new ArrayList<>();
         }
     }
@@ -57,6 +61,7 @@ public class JsonParser {
 
     public void addPerson(Person person) {
         persons.add(person);
+        log.info("Person added: {} {}", person.getFirstName(), person.getLastName());
     }
 
     public void deletePerson(String firstName, String lastName) {
@@ -70,12 +75,14 @@ public class JsonParser {
 
             if (wrapper != null && wrapper.getFirestations() != null) {
                 firestations = wrapper.getFirestations();
+                log.info("Loaded {} firestations from JSON.", firestations.size());
+
             } else {
                 firestations = new ArrayList<>();
-                System.err.println("Warning: No firestation found in the JSON file.");
+                log.warn("No firestations found in the JSON file.");
             }
         } catch (IOException e) {
-            System.err.println("Error loading data from JSON file: " + e.getMessage());
+            log.error("Error loading firestations from JSON file: {}", e.getMessage());
             firestations = new ArrayList<>();
         }
     }
@@ -95,10 +102,13 @@ public class JsonParser {
 
     public void addFirestation(Firestation firestation) {
         firestations.add(firestation);
+        log.info("Added firestation at address: {}", firestation.getAddress());
     }
 
     void deleteFirestation(String address) {
-        firestations.removeIf(p -> p.getAddress().equalsIgnoreCase(address));
+        firestations.removeIf(
+                p -> p.getAddress().equalsIgnoreCase(address));
+        log.info("Deleted firestation at address: {}", address);
     }
 
     /**********************************MedicalRecords***********************************************/
@@ -108,12 +118,13 @@ public class JsonParser {
 
             if (wrapper != null && wrapper.getMedicalRecords() != null) {
                 medicalRecords = wrapper.getMedicalRecords();
+                log.info("Loaded {} medical records from JSON.", medicalRecords.size());
             } else {
                 medicalRecords = new ArrayList<>(); // Ensure we always have a valid list
-                System.err.println("Warning: No record found in the JSON file based on your search.");
+                log.warn("No medical records found in the JSON file.");
             }
         } catch (IOException e) {
-            System.err.println("Error loading data from JSON file: " + e.getMessage());
+            log.error("Error loading medical records from JSON file: {}", e.getMessage());
             medicalRecords = new ArrayList<>();
         }
     }
@@ -133,6 +144,7 @@ public class JsonParser {
 
     public void addMedicalRecord(MedicalRecord medicalRecord) {
         medicalRecords.add(medicalRecord);
+        log.info("Added medical record for person: {} {}", medicalRecord.getFirstName(), medicalRecord.getLastName());
     }
 
     public Person getPersonsByLastName(String lastName) {
